@@ -23,7 +23,7 @@ public class One_CreateAccount extends JPanel{
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-	
+	private JList list;
 
 
 	public One_CreateAccount() {
@@ -105,7 +105,7 @@ public class One_CreateAccount extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnNewButton) {
 					DatabaseConnection db = new DatabaseConnection();
-					db.insertusers(db.getConnection(), textField.getText(), textField_1.getText(), textField_2.getText(), "customer", textField_3.getText(), textField_4.getText(), 0);
+					db.insertusers(db.getConnection(), textField.getText(), textField_1.getText(), list.getSelectedValue().toString(), textField_4.getText(), textField_2.getText(), textField_3.getText(), 0);
 					Two_ShoppingPage panel = new Two_ShoppingPage();
 					main.changePanel(panel);
 				}
@@ -113,7 +113,19 @@ public class One_CreateAccount extends JPanel{
 		});
 		add(btnNewButton);
 		
-		JList list = new JList();
+		JButton alreadyHaveAccount = new JButton("Already Have an Account?");
+		alreadyHaveAccount.setBounds(200, 404, 200, 31);
+		alreadyHaveAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==alreadyHaveAccount) {
+					Zero_Login panel = new Zero_Login();
+					main.changePanel(panel);
+				}
+			}
+		});
+		add(alreadyHaveAccount);
+		
+		list = new JList();
 		list.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		list.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Customer", "Employee", "Manager"};

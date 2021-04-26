@@ -8,9 +8,14 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+
+import DB.DatabaseConnection;
+
 import java.awt.Canvas;
 import java.awt.Panel;
 import java.awt.TextField;
@@ -68,7 +73,7 @@ public class Two_ShoppingPage extends JPanel{
 		});
 		add(showCartButton);
 		
-		JButton btnNewButton_2 = new JButton("Add");
+		JButton btnNewButton_2 = new JButton("Add"); 
 		btnNewButton_2.setBounds(524, 478, 59, 23);
 		add(btnNewButton_2);
 		
@@ -124,11 +129,11 @@ public class Two_ShoppingPage extends JPanel{
 		textField.setBounds(29, 106, 797, 22);
 		add(textField);
 		
-		JTextPane txtpnABeautifulEgg = new JTextPane();
-		txtpnABeautifulEgg.setEditable(false);
-		txtpnABeautifulEgg.setText("A beautiful egg.");
-		txtpnABeautifulEgg.setBounds(459, 183, 205, 23);
-		add(txtpnABeautifulEgg);
+		JTextPane txtfieldABeautifulEgg = new JTextPane();
+		txtfieldABeautifulEgg.setEditable(false);
+		txtfieldABeautifulEgg.setText("A beautiful egg.");
+		txtfieldABeautifulEgg.setBounds(459, 183, 205, 23);
+		add(txtfieldABeautifulEgg);
 		
 		JTextPane txtpnInstockLeft = new JTextPane();
 		txtpnInstockLeft.setEditable(false);
@@ -136,9 +141,10 @@ public class Two_ShoppingPage extends JPanel{
 		txtpnInstockLeft.setBounds(459, 217, 205, 23);
 		add(txtpnInstockLeft);
 		
-		JTextPane txtpnOutOfStock = new JTextPane();
+		JTextField txtpnOutOfStock = new JTextField();
 		txtpnOutOfStock.setEditable(false);
-		txtpnOutOfStock.setText("Out of Stock");
+		txtpnOutOfStock.setVisible(false);
+		//btnNewButton_2.txtpnOutOfStock.setText("Out of Stock");
 		txtpnOutOfStock.setBounds(459, 239, 159, 23);
 		add(txtpnOutOfStock);
 		
@@ -194,6 +200,7 @@ public class Two_ShoppingPage extends JPanel{
 		addButton(button11, "Button1", 482);
 		addButton(button12, "Button1", 516);
 		//add(btnLogOut);
+		
 
 	}
 	

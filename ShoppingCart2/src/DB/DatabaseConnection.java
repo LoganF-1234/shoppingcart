@@ -1,11 +1,14 @@
 package DB;
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseConnection {
 	
 	Connection connection = getConnection();
-   
+    ArrayList<String> usernames;
+    ArrayList<String> itemNames;
+
     	
         // Create Table
 		//createTable()
@@ -288,6 +291,82 @@ public class DatabaseConnection {
             System.err.println("Catch all Exception occurred: "+e.getClass().getName()+": "+e.getMessage());
         }
         return connection;
+	}
+	
+	public ArrayList<String> getUsernames(Connection connection) {   
+        Statement statement = null;        
+        try {
+        usernames = new ArrayList<String>();
+        statement = connection.createStatement();
+       // select(connection, "users");
+        String sqlCommand =
+                 "SELECT username FROM users;";
+        ResultSet resultSet = statement.executeQuery(sqlCommand);    
+
+        while (resultSet.next()) {
+            usernames.add(resultSet.getString("username"));
+        }
+        
+        statement.executeUpdate(sqlCommand);
+        connection.commit();
+        statement.close();
+        System.out.println("Username fetched..");
+        }catch (Exception e) {
+            System.err.println(e.getClass());
+        }
+        
+        return usernames;
+    }
+
+	public String findUser(String username) {
+		getUsernames(connection);
+		String user = "";
+		for(int i =0; i< usernames.size(); i++) {
+			if(usernames.get(i).equals(username)) {
+				user += username;
+				System.out.println("Logged in as:" + user);
+			}
+		}
+		return user;
+	}
+	
+	public boolean userInArray(String username) {
+		if(findUser(username).equals(username)) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	public ArrayList<String> getItemnames(Connection connection) {   
+        Statement statement = null;        
+        try {
+        itemNames = new ArrayList<String>();
+        statement = connection.createStatement();
+       // select(connection, "users");
+        String sqlCommand =
+                 "SELECT name FROM items;";
+        ResultSet resultSet = statement.executeQuery(sqlCommand);    
+
+        while (resultSet.next()) {
+            itemNames.add(resultSet.getString("name"));
+        }
+        
+        statement.executeUpdate(sqlCommand);
+        connection.commit();
+        statement.close();
+        System.out.println("Item name fetched..");
+        }catch (Exception e) {
+            System.err.println(e.getClass());
+        }
+        
+        return itemNames;
+    }
+	
+	public String getItemName(int num) {
+		getItemnames(connection);
+		return itemNames.get(num);
 	}
 	
 	

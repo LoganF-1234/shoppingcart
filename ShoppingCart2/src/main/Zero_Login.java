@@ -75,11 +75,15 @@ public class Zero_Login extends JPanel {
 				if(e.getSource()==signInButton) {
 					String textUsername = textFieldUsername.getText();
 					String textPassword = textFieldPassword.getText();
+					DatabaseConnection db = new DatabaseConnection();
 					//connection.selectUserNameForLogin(connection.getConnection(), textFieldUsername.getText());
-					if(!(textUsername.equals("")) || !(textPassword.equals(""))) {
-						Two_ShoppingPage panel = new Two_ShoppingPage();
-						main.changePanel(panel);
-						return;
+					if(!(textUsername.equals("")) && !(textPassword.equals(""))) {
+						if(db.userInArray(textUsername) == true) {
+							Two_ShoppingPage panel = new Two_ShoppingPage();
+							main.changePanel(panel);
+							return;
+						}
+						
 					} else {
 						errorField.setText("Username not found");
 						return;
@@ -97,7 +101,7 @@ public class Zero_Login extends JPanel {
 		
 		createAccountButton = new JButton("Create Account");
 		createAccountButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		createAccountButton.setBounds(259, 400, 98, 29);
+		createAccountButton.setBounds(235, 400, 150, 29);
 		createAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==createAccountButton) {
