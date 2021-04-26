@@ -46,7 +46,7 @@ public class Six_LogOut extends JPanel{
 		add(txtpnyourCartWill);
 		
 		JButton returnToLoginButton = new JButton("Return to Login");
-		returnToLoginButton.setBounds(229, 271, 107, 22);
+		returnToLoginButton.setBounds(220, 271, 130, 22);
 		returnToLoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==returnToLoginButton) {
