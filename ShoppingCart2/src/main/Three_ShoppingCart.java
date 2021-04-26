@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DB.DatabaseConnection;
+
 import java.awt.Color;
 import javax.swing.JTextPane;
 import java.awt.Font;
@@ -39,6 +42,14 @@ public class Three_ShoppingCart extends JPanel {
 		JButton btnCheckOut = new JButton("Back");
 		btnCheckOut.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCheckOut.setBounds(300, 227, 110, 23);
+		btnCheckOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==btnCheckOut) {
+					Two_ShoppingPage panel = new Two_ShoppingPage();
+					main.changePanel(panel);
+				}
+			}
+		});
 		add(btnCheckOut);
 	}
 	

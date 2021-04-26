@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DB.DatabaseConnection;
+
 import javax.swing.JTextPane;
 import java.awt.Color;
 import java.awt.Font;
@@ -62,26 +65,31 @@ public class Four_CheckOut extends JPanel {
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnLogout.setBounds(643, 30, 112, 36);
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==btnLogout) {
+					Six_LogOut panel = new Six_LogOut();
+					main.changePanel(panel);
+				}
+			}
+		});
 		add(btnLogout);
 		
-		JButton btnBackToLogin = new JButton("Back to Login:");
-		btnBackToLogin.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnBackToLogin.setBounds(75, 366, 149, 36);
-		add(btnBackToLogin);
+		JButton returnToLoginButton = new JButton("Back to Login:");
+		returnToLoginButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		returnToLoginButton.setBounds(75, 366, 149, 36);
+		returnToLoginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==returnToLoginButton) {
+					Zero_Login panel = new Zero_Login();
+					main.changePanel(panel);
+				}
+			}
+		});
+		add(returnToLoginButton);
 	}
 	
-	public class SwitchPage implements ActionListener{
-		JFrame bye;
-		JFrame hi;
-		public SwitchPage(JFrame bye, JFrame hi) {
-			this.bye = bye;
-			this.hi = hi;
-		}
-		public void actionPerformed(ActionEvent event) {
-			bye.setVisible(false);
-			hi.setVisible(true);
-			}
-		}
+	
 	
 
 }

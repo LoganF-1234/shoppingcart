@@ -11,9 +11,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import DB.DatabaseConnection;
+
 public class Zero_Login extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textFieldUsername;
+	private JTextField textFieldPassword;
+	private JTextField errorField;
+	private JButton createAccountButton;
 
 	/**
 	 * Create the panel.
@@ -36,17 +40,18 @@ public class Zero_Login extends JPanel {
 		txtpnLogin.setBounds(286, 110, 111, 50);
 		add(txtpnLogin);
 		
-		textField = new JTextField();
-		textField.setBackground(Color.LIGHT_GRAY);
-		textField.setBounds(311, 231, 127, 29);
-		add(textField);
-		textField.setColumns(10);
+		textFieldUsername = new JTextField();
+		textFieldUsername.setBackground(Color.LIGHT_GRAY);
+		textFieldUsername.setBounds(311, 231, 127, 29);
+		add(textFieldUsername);
+		textFieldUsername.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBackground(Color.LIGHT_GRAY);
-		textField_1.setBounds(311, 271, 127, 29);
-		add(textField_1);
+		textFieldPassword = new JTextField();
+		textFieldPassword.setBackground(Color.LIGHT_GRAY);
+		textFieldPassword.setBounds(311, 271, 127, 29);
+		add(textFieldPassword);
+		textFieldPassword.setColumns(10);
+
 		
 		JTextPane txtpnUsername = new JTextPane();
 		txtpnUsername.setText("Username:");
@@ -62,18 +67,48 @@ public class Zero_Login extends JPanel {
 		txtpnPassword.setBounds(184, 271, 111, 29);
 		add(txtpnPassword);
 		
-		JButton btnNewButton = new JButton("Sign In");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton.setBounds(259, 311, 98, 29);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton signInButton = new JButton("Sign In");
+		signInButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		signInButton.setBounds(259, 311, 98, 29);
+		signInButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==btnNewButton) {
-					Two_ShoppingPage panel = new Two_ShoppingPage();
+				if(e.getSource()==signInButton) {
+					String textUsername = textFieldUsername.getText();
+					String textPassword = textFieldPassword.getText();
+					//connection.selectUserNameForLogin(connection.getConnection(), textFieldUsername.getText());
+					if(!(textUsername.equals("")) || !(textPassword.equals(""))) {
+						Two_ShoppingPage panel = new Two_ShoppingPage();
+						main.changePanel(panel);
+						return;
+					} else {
+						errorField.setText("Username not found");
+						return;
+					}
+				}
+			}
+		});
+		add(signInButton);
+		
+		errorField = new JTextField();
+		errorField.setBackground(Color.WHITE);
+		errorField.setBounds(244, 359, 127, 29);
+		add(errorField);
+		errorField.setColumns(10);
+		
+		createAccountButton = new JButton("Create Account");
+		createAccountButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		createAccountButton.setBounds(259, 400, 98, 29);
+		createAccountButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==createAccountButton) {
+					One_CreateAccount panel = new One_CreateAccount();
 					main.changePanel(panel);
 				}
 			}
 		});
-		add(btnNewButton);
+		add(createAccountButton);
+		
+		
 		
 
 		

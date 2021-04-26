@@ -15,13 +15,14 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 
+import DB.DatabaseConnection;
+
 public class One_CreateAccount extends JPanel{
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-	CardLayoutHelper cardLayout = new CardLayoutHelper();
 	
 
 
@@ -100,7 +101,16 @@ public class One_CreateAccount extends JPanel{
 	
 		JButton btnNewButton = new JButton("Create Account");
 		btnNewButton.setBounds(560, 404, 128, 31);
-		//btnNewButton.addActionListener(new SwitchPage("panelShopping"));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==btnNewButton) {
+					DatabaseConnection db = new DatabaseConnection();
+					db.insertusers(db.getConnection(), textField.getText(), textField_1.getText(), textField_2.getText(), "customer", textField_3.getText(), textField_4.getText(), 0);
+					Two_ShoppingPage panel = new Two_ShoppingPage();
+					main.changePanel(panel);
+				}
+			}
+		});
 		add(btnNewButton);
 		
 		JList list = new JList();
@@ -123,21 +133,7 @@ public class One_CreateAccount extends JPanel{
 		txtrPosition.setBounds(545, 20, 95, 22);
 		add(txtrPosition);
 		
-		//cardLayout.getCardPanel().add(new One_CreateAccount());
 		
 		
 	}
-	
-	public class SwitchPage extends CardLayoutHelper implements ActionListener{
-		//CardLayoutHelper cardLayout = new CardLayoutHelper();
-		String cardName;
-		
-		public SwitchPage(String cardName) {
-			this.cardName = cardName;
-		}
-		
-		public void actionPerformed(ActionEvent event) {
-			showCard(cardName);
-			}
-		} 
 }

@@ -44,13 +44,29 @@ public class Two_ShoppingPage extends JPanel{
 
 
 		
-		JButton btnNewButton = new JButton("Check Out");
-		btnNewButton.setBounds(593, 478, 89, 23);
-		add(btnNewButton);
+		JButton checkOutButton = new JButton("Check Out");
+		checkOutButton.setBounds(593, 478, 89, 23);
+		checkOutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==checkOutButton) {
+					Four_CheckOut panel = new Four_CheckOut();
+					main.changePanel(panel);
+				}
+			}
+		});
+		add(checkOutButton);
 	
-		JButton btnNewButton_1 = new JButton("Show Cart");
-		btnNewButton_1.setBounds(689, 478, 89, 23);
-		add(btnNewButton_1);
+		JButton showCartButton = new JButton("Show Cart");
+		showCartButton.setBounds(689, 478, 89, 23);
+		showCartButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==showCartButton) {
+					Three_ShoppingCart panel = new Three_ShoppingCart();
+					main.changePanel(panel);
+				}
+			}
+		});
+		add(showCartButton);
 		
 		JButton btnNewButton_2 = new JButton("Add");
 		btnNewButton_2.setBounds(524, 478, 59, 23);
@@ -154,6 +170,15 @@ public class Two_ShoppingPage extends JPanel{
 		JButton btnLogOut = new JButton("Logout");
 		btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnLogOut.setBounds(675, 66, 151, 34);
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==btnLogOut) {
+					Six_LogOut panel = new Six_LogOut();
+					main.changePanel(panel);
+				}
+			}
+		});
+		add(btnLogOut);
 		
 		//addButton(button1, )
 		addButton(button1, "Button1", 147);
@@ -168,7 +193,7 @@ public class Two_ShoppingPage extends JPanel{
 		addButton(button10, "Button1", 448);
 		addButton(button11, "Button1", 482);
 		addButton(button12, "Button1", 516);
-		add(btnLogOut);
+		//add(btnLogOut);
 
 	}
 	
@@ -180,16 +205,5 @@ public class Two_ShoppingPage extends JPanel{
 		return button;
 	}
 	
-	public class SwitchPage implements ActionListener{
-		JPanel bye;
-		JPanel hi;
-		public SwitchPage(JPanel bye, JPanel hi) {
-			this.bye = bye;
-			this.hi = hi;
-		}
-		public void actionPerformed(ActionEvent event) {
-			
-			}
-		}
 
 }

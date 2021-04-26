@@ -11,8 +11,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
+
+import DB.DatabaseConnection;
 
 public class Six_LogOut extends JPanel{
 
@@ -42,21 +45,17 @@ public class Six_LogOut extends JPanel{
 		txtpnyourCartWill.setBounds(172, 219, 226, 22);
 		add(txtpnyourCartWill);
 		
-		JButton btnNewButton = new JButton("Return to Login");
-		btnNewButton.setBounds(229, 271, 107, 22);
-		add(btnNewButton);
+		JButton returnToLoginButton = new JButton("Return to Login");
+		returnToLoginButton.setBounds(229, 271, 107, 22);
+		returnToLoginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==returnToLoginButton) {
+					Zero_Login panel = new Zero_Login();
+					main.changePanel(panel);
+				}
+			}
+		});
+		add(returnToLoginButton);
 	}
 	
-	public class SwitchPage implements ActionListener{
-		JFrame bye;
-		JFrame hi;
-		public SwitchPage(JFrame bye, JFrame hi) {
-			this.bye = bye;
-			this.hi = hi;
-		}
-		public void actionPerformed(ActionEvent event) {
-			bye.setVisible(false);
-			hi.setVisible(true);
-			}
-		}
 }
