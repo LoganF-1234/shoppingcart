@@ -4,6 +4,10 @@ import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
+import java.awt.CardLayout;
+
+import javax.swing.JPanel;
+
 public class CardLayoutHelper {
 	private CardLayout c1;
  	private JPanel cardPanel;
@@ -34,5 +38,9 @@ public class CardLayoutHelper {
 	
 	public JPanel getCardPanel() {
 		return cardPanel;
+	}
+	
+	public void setPanel(JPanel panel) {
+		cardPanel = panel;
 	}
 }
