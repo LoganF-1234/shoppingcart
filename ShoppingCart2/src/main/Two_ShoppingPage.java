@@ -63,6 +63,7 @@ public class Two_ShoppingPage extends JPanel{
 				if(e.getSource()==checkOutButton) {
 					Four_CheckOut panel = new Four_CheckOut();
 					main.changePanel(panel);
+					//main.db.decodeInfo(main.db.setShoppingCartInfo("banana", Integer.toString(342), Integer.toString(123)) + main.db.setShoppingCartInfo("strawberry", Integer.toString(342), Integer.toString(123)));
 				}
 			}
 		});
@@ -139,7 +140,7 @@ public class Two_ShoppingPage extends JPanel{
 		txtfieldABeautifulEgg = new JTextPane();
 		txtfieldABeautifulEgg.setEditable(false);
 		txtfieldABeautifulEgg.setText("A beautiful egg.");
-		txtfieldABeautifulEgg.setBounds(459, 183, 205, 23);
+		txtfieldABeautifulEgg.setBounds(459, 183, 370, 23);
 		add(txtfieldABeautifulEgg);
 		
 		txtpnInstockLeft = new JTextPane();
@@ -230,7 +231,7 @@ public class Two_ShoppingPage extends JPanel{
         	if(e.getSource()== button) {
             	ArrayList<String> stuff = main.db.getItemnames(main.db.getConnection());
 
-                txtfieldABeautifulEgg.setText(stuff.get(i) + " " + stuff.get(i+3));
+                txtfieldABeautifulEgg.setText(stuff.get(i) + "                        " + stuff.get(i+3));
                 textPane.setText("$" + stuff.get(i+1));
                 //txtpnPerDozen.setText("Per Dozen");
                 txtpnInstockLeft.setText("In-Stock: " + stuff.get(i+2) +" left");               

@@ -1,6 +1,8 @@
 package main;
 
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+
 import java.awt.Color;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
@@ -15,7 +17,7 @@ import DB.DatabaseConnection;
 
 public class Zero_Login extends JPanel {
 	private JTextField textFieldUsername;
-	private JTextField textFieldPassword;
+	private JPasswordField textFieldPassword;
 	private JTextField errorField;
 	private JButton createAccountButton;
 
@@ -46,7 +48,7 @@ public class Zero_Login extends JPanel {
 		add(textFieldUsername);
 		textFieldUsername.setColumns(10);
 		
-		textFieldPassword = new JTextField();
+		textFieldPassword = new JPasswordField();
 		textFieldPassword.setBackground(Color.LIGHT_GRAY);
 		textFieldPassword.setBounds(311, 271, 127, 29);
 		add(textFieldPassword);
@@ -74,9 +76,9 @@ public class Zero_Login extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==signInButton) {
 					String textUsername = textFieldUsername.getText();
-					String textPassword = textFieldPassword.getText();
+					char[] textPassword = textFieldPassword.getPassword();
 					//connection.selectUserNameForLogin(connection.getConnection(), textFieldUsername.getText());
-					if(!(textUsername.equals("")) && !(textPassword.equals(""))) {
+					if(!(textUsername.equals("")) && !(textPassword.length == 0)) {
 						if(main.db.userInArray(textUsername) == true) {
 							Two_ShoppingPage panel = new Two_ShoppingPage();
 							main.changePanel(panel);
