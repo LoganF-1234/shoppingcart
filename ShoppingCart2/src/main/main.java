@@ -12,8 +12,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class main extends JFrame {
+import DB.*;
 
+public class main extends JFrame {
+	
+	static DatabaseConnection db = new DatabaseConnection();
 	private JPanel contentPane;
 	static CardLayoutHelper cardLayout = new CardLayoutHelper();
 	static main frame = new main();

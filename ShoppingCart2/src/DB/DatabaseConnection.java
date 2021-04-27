@@ -48,9 +48,6 @@ public class DatabaseConnection {
     
     */
 
-    
-    
-    
     public void createTable(Connection connection)
     {
         Statement statement = null;
@@ -204,14 +201,7 @@ public class DatabaseConnection {
             	  }   	  
               }
               return result;
-	
-              
-                  
-             
-                
-                
-          
-                
+  
           } catch (Exception e) {
               e.printStackTrace();
               System.err.println("Catch all Exception occurred: "+e.getClass().getName()+": "+e.getMessage());
@@ -279,7 +269,7 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/shoppingcart",
                     "postgres",
-                    "password"
+                    "logan2002"
             );
             System.out.println("Opened Database Successfully!");
         }catch(ClassNotFoundException e) {
@@ -307,8 +297,8 @@ public class DatabaseConnection {
             usernames.add(resultSet.getString("username"));
         }
         
-        statement.executeUpdate(sqlCommand);
-        connection.commit();
+        //statement.executeUpdate(sqlCommand); //ERROR CALLING CATCH ~ REDUNDANT
+        //connection.commit(); //ERROR CALLING CATCH
         statement.close();
         System.out.println("Username fetched..");
         }catch (Exception e) {
@@ -319,7 +309,7 @@ public class DatabaseConnection {
     }
 
 	public String findUser(String username) {
-		getUsernames(connection);
+		getUsernames(connection); //ERROR HERE
 		String user = "";
 		for(int i =0; i< usernames.size(); i++) {
 			if(usernames.get(i).equals(username)) {
@@ -346,15 +336,34 @@ public class DatabaseConnection {
         statement = connection.createStatement();
        // select(connection, "users");
         String sqlCommand =
-                 "SELECT name FROM items;";
+                 "SELECT * FROM items;";
         ResultSet resultSet = statement.executeQuery(sqlCommand);    
 
+        int i = 0;
         while (resultSet.next()) {
-            itemNames.add(resultSet.getString("name"));
+            //itemNames.add(resultSet.getString("name"));
+//            System.out.print(resultSet.getInt(1));
+//            System.out.print(resultSet.getString(2));
+//            System.out.println(resultSet.getString(3));
+//            System.out.println(resultSet.getInt(4));
+//            System.out.println(resultSet.getInt(5));
+//            System.out.println(resultSet.getString(6));
+            itemNames.add(i, Integer.toString(resultSet.getInt(1)));
+            i++;
+            itemNames.add(i, resultSet.getString(2));
+            i++;
+            itemNames.add(i, resultSet.getString(3));
+            i++;
+            itemNames.add(i, Integer.toString(resultSet.getInt(4)));
+            i++;
+            itemNames.add(i, Integer.toString(resultSet.getInt(5)));
+            i++;
+            itemNames.add(i, resultSet.getString(6));
+            i++;
         }
         
-        statement.executeUpdate(sqlCommand);
-        connection.commit();
+        //statement.executeUpdate(sqlCommand); REDUNDANT
+        //connection.commit();
         statement.close();
         System.out.println("Item name fetched..");
         }catch (Exception e) {

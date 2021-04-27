@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import java.awt.Canvas;
@@ -31,8 +32,8 @@ public class Seven_Manager extends JPanel {
 		JTextPane txtpnShoppingPage = new JTextPane();
 		txtpnShoppingPage.setEditable(false);
 		txtpnShoppingPage.setFont(new Font("Tahoma", Font.PLAIN, 33));
-		txtpnShoppingPage.setBounds(10, 11, 229, 52);
-		txtpnShoppingPage.setText("Shopping Page");
+		txtpnShoppingPage.setBounds(10, 11, 600, 52);
+		txtpnShoppingPage.setText("Shopping Page ~ Manager View");
 		add(txtpnShoppingPage);
 		
 		JButton btnNewButton = new JButton("Check Out");
@@ -101,15 +102,22 @@ public class Seven_Manager extends JPanel {
 		JTextPane txtpnABeautifulEgg = new JTextPane();
 		txtpnABeautifulEgg.setText("A beautiful egg.");
 		txtpnABeautifulEgg.setBounds(459, 183, 205, 23);
+		txtpnABeautifulEgg.setEditable(false);
 		add(txtpnABeautifulEgg);
 		
 		JTextPane txtpnInstockLeft = new JTextPane();
-		txtpnInstockLeft.setText("In-Stock: 240 left");
-		txtpnInstockLeft.setBounds(459, 217, 205, 23);
-		add(txtpnInstockLeft);
+		txtpnInstockLeft.setText("In-Stock");
+		txtpnInstockLeft.setBounds(459, 217, 50, 23);
+		add(txtpnInstockLeft);		
+		
+		JTextField txtpnInstockAmt = new JTextField();
+		txtpnInstockAmt.setBounds(515, 217, 20, 23);
+		add(txtpnInstockAmt);
 		
 		JTextPane txtpnOutOfStock = new JTextPane();
 		txtpnOutOfStock.setText("Out of Stock");
+		txtpnOutOfStock.setVisible(false);
+		txtpnOutOfStock.setEditable(false);
 		txtpnOutOfStock.setBounds(459, 239, 159, 23);
 		add(txtpnOutOfStock);
 		

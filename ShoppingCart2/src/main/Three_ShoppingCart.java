@@ -52,18 +52,5 @@ public class Three_ShoppingCart extends JPanel {
 		});
 		add(btnCheckOut);
 	}
-	
-	public class SwitchPage implements ActionListener{
-		JFrame bye;
-		JFrame hi;
-		public SwitchPage(JFrame bye, JFrame hi) {
-			this.bye = bye;
-			this.hi = hi;
-		}
-		public void actionPerformed(ActionEvent event) {
-			bye.setVisible(false);
-			hi.setVisible(true);
-			}
-		}
-
 }
+	

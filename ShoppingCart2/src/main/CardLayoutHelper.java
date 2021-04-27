@@ -18,17 +18,17 @@ public class CardLayoutHelper {
 		cardPanel.setLayout(c1);
 	
 		One_CreateAccount panelCreate = new One_CreateAccount();
-		Two_ShoppingPage panelShopping = new Two_ShoppingPage();
-		Three_ShoppingCart panelCart = new Three_ShoppingCart();
-		Four_CheckOut panelCheckOut = new Four_CheckOut();
-		//Five_PendingOrders panelPending = new Five_PendingOrders();
-		Six_LogOut panelLogOut = new Six_LogOut();
+//		Two_ShoppingPage panelShopping = new Two_ShoppingPage();
+//		Three_ShoppingCart panelCart = new Three_ShoppingCart();
+//		Four_CheckOut panelCheckOut = new Four_CheckOut();
+//		//Five_PendingOrders panelPending = new Five_PendingOrders();
+//		Six_LogOut panelLogOut = new Six_LogOut();
 		
 		cardPanel.add(panelCreate, "panelCreate");
-		cardPanel.add(panelShopping, "panelShopping");
-		cardPanel.add(panelCart, "panelCart");
-		cardPanel.add(panelCheckOut, "panelCheckOut");
-		cardPanel.add(panelLogOut, "panelLogOut");
+//		cardPanel.add(panelShopping, "panelShopping");
+//		cardPanel.add(panelCart, "panelCart");
+//		cardPanel.add(panelCheckOut, "panelCheckOut");
+//		cardPanel.add(panelLogOut, "panelLogOut");
 
 	}
 	

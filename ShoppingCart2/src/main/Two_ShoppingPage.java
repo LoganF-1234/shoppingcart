@@ -21,6 +21,7 @@ import java.awt.Panel;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -30,10 +31,15 @@ public class Two_ShoppingPage extends JPanel{
 					button7 ,button8, button9, button10, 
 					button11, button12, buttonLogOut;
 	
+	private JTextPane txtfieldABeautifulEgg, textPane, txtpnPerDozen, 
+					  txtpnInstockLeft;
+	
+	private JTextField txtpnOutOfStock;
+		
 	public Two_ShoppingPage() {
 		initialize();
 	}
-
+	
 
 	private void initialize() {
 		
@@ -86,7 +92,7 @@ public class Two_ShoppingPage extends JPanel{
 		textArea.setBounds(459, 479, 46, 22);
 		add(textArea);
 		
-		JTextPane textPane = new JTextPane();
+		textPane = new JTextPane();
 		textPane.setEditable(false);
 		textPane.setText("$2.69");
 		textPane.setBounds(459, 349, 46, 20);
@@ -130,19 +136,19 @@ public class Two_ShoppingPage extends JPanel{
 		textField.setBounds(29, 106, 797, 22);
 		add(textField);
 		
-		JTextPane txtfieldABeautifulEgg = new JTextPane();
+		txtfieldABeautifulEgg = new JTextPane();
 		txtfieldABeautifulEgg.setEditable(false);
 		txtfieldABeautifulEgg.setText("A beautiful egg.");
 		txtfieldABeautifulEgg.setBounds(459, 183, 205, 23);
 		add(txtfieldABeautifulEgg);
 		
-		JTextPane txtpnInstockLeft = new JTextPane();
+		txtpnInstockLeft = new JTextPane();
 		txtpnInstockLeft.setEditable(false);
 		txtpnInstockLeft.setText("In-Stock: 240 left");
 		txtpnInstockLeft.setBounds(459, 217, 205, 23);
 		add(txtpnInstockLeft);
 		
-		JTextField txtpnOutOfStock = new JTextField();
+		txtpnOutOfStock = new JTextField();
 		txtpnOutOfStock.setEditable(false);
 		txtpnOutOfStock.setVisible(false);
 		//btnNewButton_2.txtpnOutOfStock.setText("Out of Stock");
@@ -187,31 +193,51 @@ public class Two_ShoppingPage extends JPanel{
 		});
 		add(btnLogOut);
 		
-		//addButton(button1, )
-		addButton(button1, "Button1", 147);
-		addButton(button2, "Button1", 183);
-		addButton(button3, "Button1", 217);
-		addButton(button4, "Button1", 251);
-		addButton(button5, "Button1", 285);
-		addButton(button6, "Button1", 319);
-		addButton(button7, "Button1", 349);
-		addButton(button8, "Button1", 381);
-		addButton(button9, "Button1", 415);
-		addButton(button10, "Button1", 448);
-		addButton(button11, "Button1", 482);
-		addButton(button12, "Button1", 516);
+		addButton(button1, "Banana", 147, 2);
+        addButton(button2, "Strawberries", 183, 8);
+		addButton(button3, "Eggplant", 217, 14);	 
+		addButton(button4, "Capicola", 251, 20);	
+		addButton(button5, "Pizza", 285, 26);	
+		addButton(button6, "Apple", 319, 32);
+		addButton(button7, "Pistachio", 349, 38);
+		addButton(button8, "Cashew", 381, 44);
+		addButton(button9, "Walnuts", 415, 50);
+		addButton(button10, "Spaghetti", 448, 56);
+		addButton(button11, "Bat", 478, 62);
+		addButton(button12, "Penne", 510, 68);
 		//add(btnLogOut);
 		
 
 	}
 	
-	public JButton addButton(JButton button, String name, int twobound) {
+	public JButton addButton(JButton button, String name, int twobound, int i) {
 		button = new JButton(name);
 		button.setHorizontalAlignment(SwingConstants.LEFT);
 		button.setBounds(39, twobound, 372, 23);
+		button.addActionListener(new ButtonListener(button, i));
 		add(button);
 		return button;
 	}
 	
+	public class ButtonListener implements ActionListener {
+        JButton button;
+        int i;
+        public ButtonListener(JButton button, int i) {
+        	this.button = button;
+        	this.i = i;
+        }
+		public void actionPerformed(ActionEvent e) {
+        	if(e.getSource()== button) {
+            	ArrayList<String> stuff = main.db.getItemnames(main.db.getConnection());
 
+                txtfieldABeautifulEgg.setText(stuff.get(i) + " " + stuff.get(i+3));
+                textPane.setText("$" + stuff.get(i+1));
+                //txtpnPerDozen.setText("Per Dozen");
+                txtpnInstockLeft.setText("In-Stock: " + stuff.get(i+2) +" left");               
+            }
+        }
+	}
 }
+	
+	
+

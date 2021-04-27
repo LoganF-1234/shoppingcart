@@ -104,8 +104,7 @@ public class One_CreateAccount extends JPanel{
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnNewButton) {
-					DatabaseConnection db = new DatabaseConnection();
-					db.insertusers(db.getConnection(), textField.getText(), textField_1.getText(), list.getSelectedValue().toString(), textField_4.getText(), textField_2.getText(), textField_3.getText(), 0);
+					main.db.insertusers(main.db.getConnection(), textField.getText(), textField_1.getText(), list.getSelectedValue().toString(), textField_4.getText(), textField_2.getText(), textField_3.getText(), 0);
 					Two_ShoppingPage panel = new Two_ShoppingPage();
 					main.changePanel(panel);
 				}
@@ -119,6 +118,7 @@ public class One_CreateAccount extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==alreadyHaveAccount) {
 					Zero_Login panel = new Zero_Login();
+					//Seven_Manager panel = new Seven_Manager();
 					main.changePanel(panel);
 				}
 			}
