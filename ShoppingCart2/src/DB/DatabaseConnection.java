@@ -466,6 +466,69 @@ public class DatabaseConnection {
             System.exit(0);
         }
 	}
+	    public void updateCart(Connection connection, int id, String user, String info)
+    {
+        Statement statement = null;
+        try{
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            
+            info += grabCart(connection).get(2 * id -1);
+            
+            String sqlCommand =
+                    "UPDATE cart info = "+info+"where ID = "+id+";";
+            statement.executeUpdate(sqlCommand);
+            connection.commit();
+            statement.close();
+            System.out.println("Data Updated...");
+
+
+            select(connection, "cart");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Catch all Exception occurred: "+e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+    }
+    public ArrayList<String> grabCart(Connection connection) {   
+        Statement statement = null;        
+        try {
+        itemNames = new ArrayList<String>();
+        statement = connection.createStatement();
+       // select(connection, "users");
+        String sqlCommand =
+                 "SELECT * FROM cart;";
+        ResultSet resultSet = statement.executeQuery(sqlCommand);    
+        int i = 0;
+        while (resultSet.next()) {
+            //itemNames.add(resultSet.getString("name"));
+//            System.out.print(resultSet.getInt(1));
+//            System.out.print(resultSet.getString(2));
+//            System.out.println(resultSet.getString(3));
+//            System.out.println(resultSet.getInt(4));
+//            System.out.println(resultSet.getInt(5));
+//            System.out.println(resultSet.getString(6));
+            itemNames.add(i, Integer.toString(resultSet.getInt(1)));
+            i++;
+            itemNames.add(i, resultSet.getString(2));
+            i++;
+            itemNames.add(i, resultSet.getString(3));
+            i++;
+
+        }
+        
+        //statement.executeUpdate(sqlCommand);
+        //connection.commit();
+        statement.close();
+        }catch (Exception e) {
+            System.err.println(e.getClass());
+        }
+        
+        return itemNames;
+    }
 	
 	
 }
