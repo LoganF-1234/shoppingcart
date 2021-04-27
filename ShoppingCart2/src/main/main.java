@@ -20,6 +20,7 @@ public class main extends JFrame {
 	private JPanel contentPane;
 	static CardLayoutHelper cardLayout = new CardLayoutHelper();
 	static main frame = new main();
+	static public String info = "";
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

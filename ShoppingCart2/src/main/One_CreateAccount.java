@@ -105,8 +105,14 @@ public class One_CreateAccount extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnNewButton) {
 					main.db.insertusers(main.db.getConnection(), textField.getText(), textField_1.getText(), list.getSelectedValue().toString(), textField_4.getText(), textField_2.getText(), textField_3.getText(), 0);
-					Two_ShoppingPage panel = new Two_ShoppingPage();
-					main.changePanel(panel);
+					if(list.getSelectedValue().toString().equals("Customer")) {
+						Two_ShoppingPage panel = new Two_ShoppingPage();
+						main.changePanel(panel);
+					} else {
+						Seven_Manager panel = new Seven_Manager();
+						main.changePanel(panel);
+					}
+					
 				}
 			}
 		});

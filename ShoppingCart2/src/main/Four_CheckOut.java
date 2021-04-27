@@ -29,7 +29,7 @@ public class Four_CheckOut extends JPanel {
 		JTextPane txtpnXEggs = new JTextPane();
 		txtpnXEggs.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtpnXEggs.setEditable(false);
-		txtpnXEggs.setText("1 x Eggs \n1 x Milk \n1 x Bannanas");
+		txtpnXEggs.setText("" + main.db.decodeInfo(main.db.grabCart(main.db.getConnection()).get(1)));
 		txtpnXEggs.setBackground(Color.LIGHT_GRAY);
 		txtpnXEggs.setBounds(455, 132, 256, 254);
 		add(txtpnXEggs);

@@ -77,7 +77,7 @@ public class Zero_Login extends JPanel {
 				if(e.getSource()==signInButton) {
 					String textUsername = textFieldUsername.getText();
 					char[] textPassword = textFieldPassword.getPassword();
-					//connection.selectUserNameForLogin(connection.getConnection(), textFieldUsername.getText());
+//HERE	
 					if(!(textUsername.equals("")) && !(textPassword.length == 0)) {
 						if(main.db.userInArray(textUsername) == true) {
 							Two_ShoppingPage panel = new Two_ShoppingPage();

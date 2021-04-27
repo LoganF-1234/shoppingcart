@@ -2,6 +2,7 @@ package DB;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import main.*;
 
 public class DatabaseConnection {
 	
@@ -354,7 +355,7 @@ public class DatabaseConnection {
             i++;
             itemNames.add(i, resultSet.getString(3));
             i++;
-            itemNames.add(i, Integer.toString(resultSet.getInt(4)));
+            itemNames.add(i, Float.toString(resultSet.getFloat(4)));
             i++;
             itemNames.add(i, Integer.toString(resultSet.getInt(5)));
             i++;
@@ -419,8 +420,8 @@ public class DatabaseConnection {
 			for(int i = 0; i < 3; i++) {
 				
 				try {
-				finalList.add(incremental,group.substring(lastPeriod+1, group.indexOf('.', lastPeriod+1)));
-				lastPeriod = group.indexOf('.', lastPeriod+1);
+				finalList.add(incremental,group.substring(lastPeriod+1, group.indexOf('/', lastPeriod+1)));
+				lastPeriod = group.indexOf('/', lastPeriod+1);
 				incremental++;
 				}
 				catch(StringIndexOutOfBoundsException arg) {
@@ -428,7 +429,7 @@ public class DatabaseConnection {
 				}
 			}
 
-			lastPeriod = group.indexOf('.', lastPeriod+1);
+			lastPeriod = group.indexOf('/', lastPeriod+1);
 		}
 		for(int i =0; i < finalList.size(); i++) {
 			System.out.println(finalList.get(i));
@@ -438,18 +439,22 @@ public class DatabaseConnection {
 
 	}
 	
+
+	
 	public String setShoppingCartInfo(String item, String cost, String amount) {
-		String info = "."+item+"."+cost+"."+amount+".,";
+		String info = "/"+item+"/"+cost+"/"+amount+"/,";
 		return info;
 	}
 	
-	public void addShoppingCart(int id, String user, String info) {
+	
+	
+	public void addShoppingCart(String user, String info, String status) {
         Statement statement = null;
         try{
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sqlCommand =
-                    "INSERT INTO cart(id, user, info) VALUES("+id+", '"+user+"', '"+info+"' );";
+                    "INSERT INTO cart(id, user, info) VALUES("+user+", '"+info+"', '"+status+"' );";
             statement.executeUpdate(sqlCommand);
             connection.commit();
             statement.close();
@@ -467,7 +472,68 @@ public class DatabaseConnection {
         }
 	}
 	
-	
-}
-	
+    public void updateCart(Connection connection, String user, String info)
+    {
+        Statement statement = null;
+        try{
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            
+            
+            
+            String sqlCommand =
+                    "UPDATE cart SET info = '"+main.info+"' WHERE username = '"+user+"';";
+            System.out.println(main.info);
+            statement.executeUpdate(sqlCommand);
+            connection.commit();
+            statement.close();
+            System.out.println("Data Updated...");
 
+
+            select(connection, "cart");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Catch all Exception occurred: "+e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+    }
+    public ArrayList<String> grabCart(Connection connection) {   
+        Statement statement = null;        
+        try {
+        itemNames = new ArrayList<String>();
+        statement = connection.createStatement();
+       // select(connection, "users");
+        String sqlCommand =
+                 "SELECT * FROM cart;";
+        ResultSet resultSet = statement.executeQuery(sqlCommand);    
+        int i = 0;
+        while (resultSet.next()) {
+            //itemNames.add(resultSet.getString("name"));
+//            System.out.print(resultSet.getInt(1));
+//            System.out.print(resultSet.getString(2));
+//            System.out.println(resultSet.getString(3));
+//            System.out.println(resultSet.getInt(4));
+//            System.out.println(resultSet.getInt(5));
+//            System.out.println(resultSet.getString(6));
+            itemNames.add(i, resultSet.getString(1));
+            i++;
+            itemNames.add(i, resultSet.getString(2));
+            i++;
+            itemNames.add(i, resultSet.getString(3));
+            i++;
+
+        }
+        
+        //statement.executeUpdate(sqlCommand);
+        //connection.commit();
+        statement.close();
+        }catch (Exception e) {
+            System.err.println(e.getClass());
+        }
+        
+        return itemNames;
+    }
+}

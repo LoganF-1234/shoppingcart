@@ -35,6 +35,8 @@ public class Two_ShoppingPage extends JPanel{
 					  txtpnInstockLeft;
 	
 	private JTextField txtpnOutOfStock;
+	
+	String name, amount, cost;
 		
 	public Two_ShoppingPage() {
 		initialize();
@@ -83,6 +85,13 @@ public class Two_ShoppingPage extends JPanel{
 		
 		JButton btnNewButton_2 = new JButton("Add"); 
 		btnNewButton_2.setBounds(524, 478, 59, 23);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==btnNewButton_2) {
+					addItem();
+				}
+			}
+		});
 		add(btnNewButton_2);
 		
 		JTextArea textArea = new JTextArea();
@@ -102,6 +111,7 @@ public class Two_ShoppingPage extends JPanel{
 		JTextPane txtpnPerDozen = new JTextPane();
 		txtpnPerDozen.setEditable(false);
 		txtpnPerDozen.setText("Per Dozen");
+		txtpnPerDozen.setVisible(false);
 		txtpnPerDozen.setBounds(524, 349, 64, 20);
 		add(txtpnPerDozen);
 		
@@ -232,12 +242,23 @@ public class Two_ShoppingPage extends JPanel{
             	ArrayList<String> stuff = main.db.getItemnames(main.db.getConnection());
 
                 txtfieldABeautifulEgg.setText(stuff.get(i) + "                        " + stuff.get(i+3));
+                name = stuff.get(i);
+                amount = stuff.get(i + 2);
+                cost = stuff.get(i + 1);
                 textPane.setText("$" + stuff.get(i+1));
                 //txtpnPerDozen.setText("Per Dozen");
                 txtpnInstockLeft.setText("In-Stock: " + stuff.get(i+2) +" left");               
             }
         }
 	}
+	
+	
+	public void addItem() {
+		String info = main.db.setShoppingCartInfo(name, cost, amount);
+		main.info += info;
+		main.db.updateCart(main.db.getConnection(), "Crayolcold", main.info);
+	}
+
 }
 	
 	
