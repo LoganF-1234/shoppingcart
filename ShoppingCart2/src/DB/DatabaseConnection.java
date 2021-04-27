@@ -378,5 +378,94 @@ public class DatabaseConnection {
 		return itemNames.get(num);
 	}
 	
+	public ArrayList<String> decodeInfo(String info){
+		
+		
+		int lastComma=info.indexOf(',');
+		int lastPeriod = 0;
+		int incremental = 0;
+		int groupNumber = 1;
+		boolean madeIt = false;
+		String smaller = info;
+		
+		ArrayList<String> finalList = new ArrayList<String>();
+		
+		String group = info;
+		
+		while(madeIt == false) {
+			
+			
+			try {
+			smaller = info.substring(lastComma+1, smaller.length());
+			if(smaller.contains(",") == true) {
+				System.out.println(smaller);
+				groupNumber++;
+				lastComma = info.indexOf(',', lastComma+1);
+			}
+			
+			else {
+				madeIt = false;
+			}
+			}
+			catch(StringIndexOutOfBoundsException arg) {
+				madeIt = true;
+			}
+		}
+		
+
+		System.out.println(groupNumber);
+		for(int f = 0; f < groupNumber; f++) {
+		
+			for(int i = 0; i < 3; i++) {
+				
+				try {
+				finalList.add(incremental,group.substring(lastPeriod+1, group.indexOf('.', lastPeriod+1)));
+				lastPeriod = group.indexOf('.', lastPeriod+1);
+				incremental++;
+				}
+				catch(StringIndexOutOfBoundsException arg) {
+					
+				}
+			}
+
+			lastPeriod = group.indexOf('.', lastPeriod+1);
+		}
+		for(int i =0; i < finalList.size(); i++) {
+			System.out.println(finalList.get(i));
+		}
+		
+		return finalList;
+
+	}
+	
+	public String setShoppingCartInfo(String item, String cost, String amount) {
+		String info = "."+item+"."+cost+"."+amount+".,";
+		return info;
+	}
+	
+	public void addShoppingCart(int id, String user, String info) {
+        Statement statement = null;
+        try{
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            String sqlCommand =
+                    "INSERT INTO cart(id, user, info) VALUES("+id+", '"+user+"', '"+info+"' );";
+            statement.executeUpdate(sqlCommand);
+            connection.commit();
+            statement.close();
+            System.out.println("Data Updated...");
+
+
+            select(connection, "cart");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Catch all Exception occurred: "+e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+	}
+	
 	
 }
