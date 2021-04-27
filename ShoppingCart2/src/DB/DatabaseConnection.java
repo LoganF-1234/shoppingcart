@@ -438,18 +438,22 @@ public class DatabaseConnection {
 
 	}
 	
+
+	
 	public String setShoppingCartInfo(String item, String cost, String amount) {
 		String info = "."+item+"."+cost+"."+amount+".,";
 		return info;
 	}
 	
-	public void addShoppingCart(int id, String user, String info) {
+	
+	
+	public void addShoppingCart(String user, String info, String status) {
         Statement statement = null;
         try{
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sqlCommand =
-                    "INSERT INTO cart(id, user, info) VALUES("+id+", '"+user+"', '"+info+"' );";
+                    "INSERT INTO cart(id, user, info) VALUES("+user+", '"+info+"', '"+status+"' );";
             statement.executeUpdate(sqlCommand);
             connection.commit();
             statement.close();
@@ -466,17 +470,18 @@ public class DatabaseConnection {
             System.exit(0);
         }
 	}
-	    public void updateCart(Connection connection, int id, String user, String info)
+	
+    public void updateCart(Connection connection, String user, String info)
     {
         Statement statement = null;
         try{
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             
-            info += grabCart(connection).get(2 * id -1);
+            
             
             String sqlCommand =
-                    "UPDATE cart info = "+info+"where ID = "+id+";";
+                    "UPDATE cart info = "+main.info+"where user = "+user+";";
             statement.executeUpdate(sqlCommand);
             connection.commit();
             statement.close();
