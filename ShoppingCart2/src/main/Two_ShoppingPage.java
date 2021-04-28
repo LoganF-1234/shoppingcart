@@ -37,6 +37,10 @@ public class Two_ShoppingPage extends JPanel{
 	private JTextField txtpnOutOfStock;
 	
 	String name, amount, cost;
+	
+	String[] arrayItemNames;
+	
+	private JComboBox comboItems;
 		
 	public Two_ShoppingPage() {
 		initialize();
@@ -204,7 +208,19 @@ public class Two_ShoppingPage extends JPanel{
 		});
 		add(btnLogOut);
 		
-		addButton(button1, "Banana", 147, 2);
+		
+		//TRYING TO MAKE COMBO BOX ISNTEAD OF BUTTONS
+		arrayItemNames = main.db.itemNamesArray(main.db.getConnection());
+		//System.out.println(arrayItemNames);
+		comboItems = new JComboBox(arrayItemNames);
+		comboItems.setSelectedIndex(1);
+		comboItems.setBounds(39, 147, 372, 23);
+		comboItems.addActionListener(new ComboListener());
+		add(comboItems);
+
+	//Originally I used buttons instead of a combobox and I am too proud of implementing this methods to delete them entirely
+		
+	/*	addButton(button1, "Banana", 147, 2);
         addButton(button2, "Strawberries", 183, 8);
 		addButton(button3, "Eggplant", 217, 14);	 
 		addButton(button4, "Capicola", 251, 20);	
@@ -216,9 +232,8 @@ public class Two_ShoppingPage extends JPanel{
 		addButton(button10, "Spaghetti", 448, 56);
 		addButton(button11, "Bat", 478, 62);
 		addButton(button12, "Penne", 510, 68);
-		//add(btnLogOut);
 		
-
+		System.out.println(main.db.getItemnames(main.db.getConnection()));
 	}
 	
 	public JButton addButton(JButton button, String name, int twobound, int i) {
@@ -240,7 +255,6 @@ public class Two_ShoppingPage extends JPanel{
 		public void actionPerformed(ActionEvent e) {
         	if(e.getSource()== button) {
             	ArrayList<String> stuff = main.db.getItemnames(main.db.getConnection());
-
                 txtfieldABeautifulEgg.setText(stuff.get(i) + "                        " + stuff.get(i+3));
                 name = stuff.get(i);
                 amount = stuff.get(i + 2);
@@ -250,7 +264,40 @@ public class Two_ShoppingPage extends JPanel{
                 txtpnInstockLeft.setText("In-Stock: " + stuff.get(i+2) +" left");               
             }
         }
-	}
+*/	}
+	
+	public class ComboListener implements ActionListener {
+		int itemPosition =0;
+		int itemDatabasePosition= 0;
+		public void actionPerformed(ActionEvent e) {
+		String itemName = (String)comboItems.getSelectedItem();
+		for(int j= 0; j < arrayItemNames.length; j++ ) {
+				if(arrayItemNames[j] == itemName) {
+					itemPosition = j;
+					if( itemPosition == 0 ) {
+						itemDatabasePosition = 2;
+
+					} else {
+						itemDatabasePosition = itemPosition*6 +2 ;
+					}
+					
+				} 
+			}
+			if(itemName == arrayItemNames[itemPosition]) {
+            	String[] stuff = main.db.itemsDatabaseArray(main.db.getConnection());
+                txtfieldABeautifulEgg.setText(stuff[itemDatabasePosition] + "                        " + stuff[itemDatabasePosition+3]);
+                name = stuff[itemDatabasePosition];
+                amount = stuff[itemDatabasePosition+2];
+                cost = stuff[itemDatabasePosition+1];
+                textPane.setText("$" + stuff[itemDatabasePosition+1]);
+                //txtpnPerDozen.setText("Per Dozen");
+                txtpnInstockLeft.setText("In-Stock: " + stuff[itemDatabasePosition+2] +" left");               
+            }
+        }
+			//updateLabel()
+			
+		}
+	
 	
 	
 	public void addItem() {

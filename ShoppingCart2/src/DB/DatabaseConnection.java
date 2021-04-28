@@ -9,6 +9,7 @@ public class DatabaseConnection {
 	Connection connection = getConnection();
     ArrayList<String> usernames;
     ArrayList<String> itemNames;
+    String[] itemNamesArray;
 
     	
         // Create Table
@@ -337,7 +338,7 @@ public class DatabaseConnection {
         statement = connection.createStatement();
        // select(connection, "users");
         String sqlCommand =
-                 "SELECT * FROM items;";
+                 "SELECT * FROM items ORDER BY id ASC;";
         ResultSet resultSet = statement.executeQuery(sqlCommand);    
 
         int i = 0;
@@ -373,6 +374,71 @@ public class DatabaseConnection {
         
         return itemNames;
     }
+	
+	//USED FOR COMBOBOX IN TWO_SHOPPINGCART
+	public String[] itemNamesArray(Connection connection) {
+		 Statement statement = null;        
+	        try {
+	        itemNamesArray = new String[100];
+	        statement = connection.createStatement();
+	       // select(connection, "users");
+	        String sqlCommand =
+	                 "SELECT * FROM items ORDER BY id ASC;";
+	        ResultSet resultSet = statement.executeQuery(sqlCommand);    
+
+	        int i = 0;
+	        while (resultSet.next()) {	        	
+	        	itemNamesArray[i] = resultSet.getString(3);
+	            i++;
+	           
+	        } 
+	        statement.close();
+	        System.out.println("Item name fetched..");
+	        }catch (Exception e) {
+	            System.err.println(e.getClass());
+	        }
+	        
+	        return itemNamesArray;
+	        
+	}
+	
+	//USED FOR COMBOBOX IN TWO_SHOPPINGCART
+		public String[] itemsDatabaseArray(Connection connection) {
+			 Statement statement = null;        
+		        try {
+		        itemNamesArray = new String[100];
+		        statement = connection.createStatement();
+		       // select(connection, "users");
+		        String sqlCommand =
+		                 "SELECT * FROM items ORDER BY id ASC;";
+		        ResultSet resultSet = statement.executeQuery(sqlCommand);    
+
+		        int i = 0;
+		        while (resultSet.next()) {	        	
+		        	 itemNamesArray[i] = Integer.toString(resultSet.getInt(1));
+		             i++;
+		             itemNamesArray[i] =resultSet.getString(2);
+		             i++;
+		             itemNamesArray[i] = resultSet.getString(3);
+		             i++;
+		             itemNamesArray[i] = Float.toString(resultSet.getFloat(4));
+		             i++;
+		             itemNamesArray[i] = Integer.toString(resultSet.getInt(5));
+		             i++;
+		             itemNamesArray[i] = resultSet.getString(6);
+		             i++;
+		        	
+		           
+		        } 
+		        statement.close();
+		        System.out.println("Item name fetched..");
+		        }catch (Exception e) {
+		            System.err.println(e.getClass());
+		        }
+		        
+		        return itemNamesArray;
+		        
+		}
 	
 	public String getItemName(int num) {
 		getItemnames(connection);
