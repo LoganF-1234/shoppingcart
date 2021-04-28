@@ -505,8 +505,6 @@ public class DatabaseConnection {
 
 	}
 	
-
-	
 	public String setShoppingCartInfo(String item, String cost, String amount) {
 		String info = "/"+item+"/"+cost+"/"+amount+"/,";
 		return info;
