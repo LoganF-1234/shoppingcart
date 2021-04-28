@@ -217,9 +217,9 @@ public class Two_ShoppingPage extends JPanel{
 		comboItems.setBounds(39, 147, 372, 23);
 		comboItems.addActionListener(new ComboListener());
 		add(comboItems);
+		System.out.println(main.db.getItemnames(main.db.getConnection()));
 
-	//Originally I used buttons instead of a combobox and I am too proud of implementing this methods to delete them entirely
-		
+	//Originally I used buttons instead of a combobox and I am too proud of implementing this methods to delete them entirely		
 	/*	addButton(button1, "Banana", 147, 2);
         addButton(button2, "Strawberries", 183, 8);
 		addButton(button3, "Eggplant", 217, 14);	 
@@ -233,7 +233,6 @@ public class Two_ShoppingPage extends JPanel{
 		addButton(button11, "Bat", 478, 62);
 		addButton(button12, "Penne", 510, 68);
 		
-		System.out.println(main.db.getItemnames(main.db.getConnection()));
 	}
 	
 	public JButton addButton(JButton button, String name, int twobound, int i) {
@@ -266,24 +265,39 @@ public class Two_ShoppingPage extends JPanel{
         }
 */	}
 	
-	public class ComboListener implements ActionListener {
-		int itemPosition =0;
+	public class ComboListener implements ActionListener { //This action listener will need to be able to compare the array of just item names to the array of all item information in the for loop
+		int itemPosition =0; 
 		int itemDatabasePosition= 0;
 		public void actionPerformed(ActionEvent e) {
 		String itemName = (String)comboItems.getSelectedItem();
+		
+		/* itemPosition and itemDatabasePosition will be "linked" so that the int they carry will be the respectiv eindexes of where the same item name is in the respective arrays
+		 *
+		 * itemPosition array => arrayItemNames: [banana, strawberries, egglpant, gabagool, frozen pizza, apple,...]
+		 * itemDatabasePosition array => [1, fruit, banana, 1.0, 5, large banana, 2, fruit, strawberries, 1.69, 5, 16oz container, 3, fruit, eggplant, 1.79, 5, like the banana but purple, 4, meat, gabagool, 1.79, 5, tony sopranos favorite treat,..]
+		 * 
+		 * itemPosition (index) for strawberries in arrayItemNames is 1, in the second array the index (itemDatabasePosition) is 8
+		 * index for eggplants is 3, then 14
+		 * 
+		 * So the indexes correspond as follows... 
+		 * 
+		 * itemDatabasePosition = (itemPosition * 6) + 2
+		 * 
+		 */
+			
 		for(int j= 0; j < arrayItemNames.length; j++ ) {
-				if(arrayItemNames[j] == itemName) {
-					itemPosition = j;
-					if( itemPosition == 0 ) {
-						itemDatabasePosition = 2;
+				if(arrayItemNames[j] == itemName) { // finds the items j position in the array based on its name
+					itemPosition = j; // set temp varaible so j can reset
+					if( itemPosition == 0 ) { //if the first item in the combobox is selected, the index for the database of all the items is set to 2 since that is where the name for the item first occurs
+						itemDatabasePosition = 2; // if the item position 
 
 					} else {
-						itemDatabasePosition = itemPosition*6 +2 ;
+						itemDatabasePosition = itemPosition*6 +2 ; //
 					}
 					
 				} 
 			}
-			if(itemName == arrayItemNames[itemPosition]) {
+			if(itemName == arrayItemNames[itemPosition]) { //use the itemDatabasePosition from above to add items at indexes near it in the array into the corresponding text panes. See line 277.
             	String[] stuff = main.db.itemsDatabaseArray(main.db.getConnection());
                 txtfieldABeautifulEgg.setText(stuff[itemDatabasePosition] + "                        " + stuff[itemDatabasePosition+3]);
                 name = stuff[itemDatabasePosition];
@@ -294,9 +308,8 @@ public class Two_ShoppingPage extends JPanel{
                 txtpnInstockLeft.setText("In-Stock: " + stuff[itemDatabasePosition+2] +" left");               
             }
         }
-			//updateLabel()
 			
-		}
+	}
 	
 	
 	
