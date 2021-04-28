@@ -14,6 +14,7 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import DB.DatabaseConnection;
+import main.Two_ShoppingPage.ComboListener;
 
 import java.awt.Canvas;
 import java.awt.Panel;
@@ -41,6 +42,10 @@ public class Seven_Manager extends JPanel{
 	int buttonNum = 0;
 	
 	JOptionPane optionPane;
+	
+	String[] arrayItemNames;
+	
+	JComboBox comboItems = new JComboBox();
 	
 	
 	public Seven_Manager() {
@@ -219,54 +224,46 @@ public class Seven_Manager extends JPanel{
 		});
 		add(btnLogOut);
 		
-		addButton(button1, "Banana", 147, 2);
-        addButton(button2, "Strawberries", 183, 8);
-		addButton(button3, "Eggplant", 217, 14);	 
-		addButton(button4, "Capicola", 251, 20);	
-		addButton(button5, "Pizza", 285, 26);	
-		addButton(button6, "Apple", 319, 32);
-		addButton(button7, "Pistachio", 349, 38);
-		addButton(button8, "Cashew", 381, 44);
-		addButton(button9, "Walnuts", 415, 50);
-		addButton(button10, "Spaghetti", 448, 56);
-		addButton(button11, "Bat", 478, 62);
-		addButton(button12, "Penne", 510, 68);
-		//add(btnLogOut);
-		
+		arrayItemNames = main.db.itemNamesArray(main.db.getConnection());
+		comboItems = new JComboBox(arrayItemNames);
+		comboItems.setSelectedIndex(1);
+		comboItems.setBounds(39, 147, 372, 23);
+		comboItems.addActionListener(new ComboListener());
+		add(comboItems);
 
 	}
 	
-	public JButton addButton(JButton button, String name, int twobound, int i) {
-		button = new JButton(name);
-		button.setHorizontalAlignment(SwingConstants.LEFT);
-		button.setBounds(39, twobound, 372, 23);
-		button.addActionListener(new ButtonListener(button, i));
-		add(button);
-		return button;
-	}
-	
-	public class ButtonListener implements ActionListener {
-        JButton button;
-        int i;
-        public ButtonListener(JButton button, int i) {
-        	this.button = button;
-        	this.i = i;
-        }
+	public class ComboListener implements ActionListener { //ComboBox described in Two_ShoppingPage
+		int itemPosition =0; 
+		int itemDatabasePosition= 0;
 		public void actionPerformed(ActionEvent e) {
-        	if(e.getSource()== button) {
-        		buttonNum = i +1;
-            	ArrayList<String> stuff = main.db.getItemnames(main.db.getConnection());
+		String itemName = (String)comboItems.getSelectedItem();
+		for(int j= 0; j < arrayItemNames.length; j++ ) {
+				if(arrayItemNames[j] == itemName) { 
+					itemPosition = j; 
+					if( itemPosition == 0 ) { 
+						itemDatabasePosition = 2; 
 
-                txtfieldABeautifulEgg.setText(stuff.get(i) + "                        " + stuff.get(i+3));
-                name = stuff.get(i);
-                amount = stuff.get(i + 2);
-                cost = stuff.get(i + 1);
-                textPane.setText("$" + stuff.get(i+1));
+					} else {
+						itemDatabasePosition = itemPosition*6 +2 ; //
+					}
+					
+				} 
+			}
+			if(itemName == arrayItemNames[itemPosition]) { 
+            	String[] stuff = main.db.itemsDatabaseArray(main.db.getConnection());
+                txtfieldABeautifulEgg.setText(stuff[itemDatabasePosition] + "                        " + stuff[itemDatabasePosition+3]);
+                name = stuff[itemDatabasePosition];
+                amount = stuff[itemDatabasePosition+2];
+                cost = stuff[itemDatabasePosition+1];
+                textPane.setText("$" + stuff[itemDatabasePosition+1]);
                 //txtpnPerDozen.setText("Per Dozen");
-                txtpnInstockLeft.setText("In-Stock: " + stuff.get(i+2) +" left");               
+                txtpnInstockLeft.setText("In-Stock: " + stuff[itemDatabasePosition+2] +" left");               
             }
         }
+			
 	}
+	
 	
 	
 	public void addItem() {
@@ -277,6 +274,3 @@ public class Seven_Manager extends JPanel{
 
 }
 	
-	
-
-

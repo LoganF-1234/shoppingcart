@@ -80,6 +80,7 @@ public class Zero_Login extends JPanel {
 //HERE	
 					if(!(textUsername.equals("")) && !(textPassword.length == 0)) {
 						if(main.db.userInArray(textUsername) == true) {
+							//System.out.println(main.db.getPassword(main.db.getConnection(), "Crayolcold"));
 							Two_ShoppingPage panel = new Two_ShoppingPage();
 							main.changePanel(panel);
 							return;
@@ -112,10 +113,6 @@ public class Zero_Login extends JPanel {
 			}
 		});
 		add(createAccountButton);
-		
-		
-		
-
 		
 	}
 

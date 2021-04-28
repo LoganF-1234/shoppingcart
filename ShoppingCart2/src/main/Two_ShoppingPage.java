@@ -217,7 +217,7 @@ public class Two_ShoppingPage extends JPanel{
 		comboItems.setBounds(39, 147, 372, 23);
 		comboItems.addActionListener(new ComboListener());
 		add(comboItems);
-		System.out.println(main.db.getItemnames(main.db.getConnection()));
+		//System.out.println(main.db.getItemnames(main.db.getConnection()));
 
 	//Originally I used buttons instead of a combobox and I am too proud of implementing this methods to delete them entirely		
 	/*	addButton(button1, "Banana", 147, 2);

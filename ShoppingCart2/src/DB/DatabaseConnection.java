@@ -10,6 +10,7 @@ public class DatabaseConnection {
     ArrayList<String> usernames;
     ArrayList<String> itemNames;
     String[] itemNamesArray;
+    String password;
 
     	
         // Create Table
@@ -599,5 +600,41 @@ public class DatabaseConnection {
         }
         
         return itemNames;
+    }
+    
+    public String getPassword(Connection connection, String user) {
+        Statement statement = null;
+        try{
+        	password ="";
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            
+            
+            
+            String sqlCommand =
+                    "SELECT password FROM users WHERE username = '"+user+"';";
+            ResultSet resultSet = statement.executeQuery(sqlCommand);    
+            while(resultSet.next()) {
+            	password = resultSet.getString(1);
+            }
+            // statement.execute
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Catch all Exception occurred: "+e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        
+        return password;
+    }
+    
+    public boolean usernameWithPassword(Connection connection, String user) {
+    	//using the username see if the password corresponding is correct
+    	return true;
     }
 }
