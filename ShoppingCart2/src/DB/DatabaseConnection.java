@@ -11,6 +11,7 @@ public class DatabaseConnection {
     ArrayList<String> itemNames;
     String[] itemNamesArray;
     String password;
+    String infoCart;
 
     	
         // Create Table
@@ -450,7 +451,7 @@ public class DatabaseConnection {
 		return itemNames.get(num);
 	}
 	
-	public ArrayList<String> decodeInfo(String info){
+	public ArrayList<String> decodeInfo(String info){ //turns info from a specific users cart into an arraylist that contains the itemname, price and amount of each item that they added to their cart
 		
 		
 		int lastComma=info.indexOf(',');
@@ -468,15 +469,16 @@ public class DatabaseConnection {
 			
 			
 			try {
-			smaller = info.substring(lastComma+1, smaller.length());
-			if(smaller.contains(",") == true) {
+			//smaller = info.substring(lastComma+1, smaller.length()); wrong, length should be based on the info string at all times since smaller changes size based on the info substring 
+			smaller = info.substring(lastComma+1, info.length()); //smaller loses the first grouping and the string becomes the rest of info minus the first item and its elements
+			if(smaller.contains(",") == true) { //if there is still items in the list
 				System.out.println(smaller);
-				groupNumber++;
-				lastComma = info.indexOf(',', lastComma+1);
+				groupNumber++; //basically all this first if statement is doing is specifying how many item names we have in the original info String 
+				lastComma = info.indexOf(',', lastComma+1); //find index of next comma in the info String
 			}
 			
 			else {
-				madeIt = false;
+				madeIt = true;
 			}
 			}
 			catch(StringIndexOutOfBoundsException arg) {
@@ -485,10 +487,10 @@ public class DatabaseConnection {
 		}
 		
 
-		System.out.println(groupNumber);
-		for(int f = 0; f < groupNumber; f++) {
+		System.out.println(groupNumber); //how many items are in this String
+		for(int f = 0; f < groupNumber; f++) { //for the amnount of items we have in this string, seperate them each into repsective catagories each containg the items name price and amount
 		
-			for(int i = 0; i < 3; i++) {
+			for(int i = 0; i < 3; i++) { //each "substring" contains the itemname, price, and amount, so we will iterate through this three times to get all of those variables
 				
 				try {
 				finalList.add(incremental,group.substring(lastPeriod+1, group.indexOf('/', lastPeriod+1)));
@@ -505,7 +507,7 @@ public class DatabaseConnection {
 		for(int i =0; i < finalList.size(); i++) {
 			System.out.println(finalList.get(i));
 		}
-		
+		//System.out.println(finalList);
 		return finalList;
 
 	}
@@ -559,7 +561,7 @@ public class DatabaseConnection {
             System.out.println("Data Updated...");
 
 
-            select(connection, "cart");
+           // select(connection, "cart");
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
@@ -602,8 +604,31 @@ public class DatabaseConnection {
         }catch (Exception e) {
             System.err.println(e.getClass());
         }
-        
+        System.out.println(itemNames);
         return itemNames;
+    }
+    
+    public String grabCartInfo(Connection connection, String user) {
+    	  Statement statement = null;        
+          try {
+          infoCart = "";
+          statement = connection.createStatement();
+         // select(connection, "users");
+          String sqlCommand =
+                   "SELECT info FROM cart WHERE username = '"+user+"';";
+          ResultSet resultSet = statement.executeQuery(sqlCommand);    
+          while (resultSet.next()) {
+        	  infoCart = resultSet.getString(1);
+          }
+          
+          //statement.executeUpdate(sqlCommand);
+          //connection.commit();
+          statement.close();
+          }catch (Exception e) {
+              System.err.println(e.getClass());
+          }
+        //  System.out.println(infoCart);
+          return infoCart;
     }
     
     public String getPassword(Connection connection, String user) {

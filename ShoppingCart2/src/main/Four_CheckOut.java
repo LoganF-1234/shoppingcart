@@ -14,14 +14,22 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
 public class Four_CheckOut extends JPanel {
+	ArrayList<String> itemsInUserCart;
+	String output = "";
 
 
 	public Four_CheckOut() {
+		itemsInUserCart =  main.db.decodeInfo(main.db.grabCartInfo(main.db.getConnection(), main.currentUser));
+		for(int i = 0; i < itemsInUserCart.size()/3; i++) {
+			output += itemsInUserCart.get(i*3 +2) + "x " + itemsInUserCart.get(i*3) + "\n";
+		}
+		
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(null);
@@ -29,7 +37,9 @@ public class Four_CheckOut extends JPanel {
 		JTextPane txtpnXEggs = new JTextPane();
 		txtpnXEggs.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtpnXEggs.setEditable(false);
-		txtpnXEggs.setText("" + main.db.decodeInfo(main.db.grabCart(main.db.getConnection()).get(1)));
+		//txtpnXEggs.setText("" + main.db.decodeInfo(main.db.grabCart(main.db.getConnection()).get(1)));
+		//txtpnXEggs.setText("" + main.db.decodeInfo(main.db.grabCartInfo(main.db.getConnection(), main.currentUser)));
+		txtpnXEggs.setText(output);
 		txtpnXEggs.setBackground(Color.LIGHT_GRAY);
 		txtpnXEggs.setBounds(455, 132, 256, 254);
 		add(txtpnXEggs);
