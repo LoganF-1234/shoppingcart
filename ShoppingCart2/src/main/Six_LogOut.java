@@ -47,11 +47,18 @@ public class Six_LogOut extends JPanel{
 		
 		JButton returnToLoginButton = new JButton("Return to Login");
 		returnToLoginButton.setBounds(220, 271, 130, 22);
-		returnToLoginButton.addActionListener(new ActionListener() {
+		returnToLoginButton.addActionListener(new ActionListener() { //I need to actually close the connection to the current logged in account, dont know how
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==returnToLoginButton) {
 					Zero_Login panel = new Zero_Login();
 					main.changePanel(panel);
+				/*	try {
+						main.db.closeConnection();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				*/
 				}
 			}
 		});

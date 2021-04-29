@@ -18,11 +18,11 @@ import javax.swing.AbstractListModel;
 import DB.DatabaseConnection;
 
 public class One_CreateAccount extends JPanel{
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField firstNameText;
+	private JTextField lastNameText;
+	private JTextField userNameText;
+	private JTextField passwordText;
+	private JTextField addressText;
 	private JList list;
 
 
@@ -74,37 +74,37 @@ public class One_CreateAccount extends JPanel{
 		txtrAddress.setBounds(77, 290, 168, 22);
 		add(txtrAddress);
 		
-		textField = new JTextField();
-		textField.setBounds(290, 158, 250, 22);
-		add(textField);
-		textField.setColumns(10);
+		firstNameText = new JTextField();
+		firstNameText.setBounds(290, 158, 250, 22);
+		add(firstNameText);
+		firstNameText.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(290, 191, 250, 22);
-		add(textField_1);
+		lastNameText = new JTextField();
+		lastNameText.setColumns(10);
+		lastNameText.setBounds(290, 191, 250, 22);
+		add(lastNameText);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(290, 224, 250, 22);
-		add(textField_2);
+		userNameText = new JTextField();
+		userNameText.setColumns(10);
+		userNameText.setBounds(290, 224, 250, 22);
+		add(userNameText);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(290, 257, 250, 22);
-		add(textField_3);
+		passwordText = new JTextField();
+		passwordText.setColumns(10);
+		passwordText.setBounds(290, 257, 250, 22);
+		add(passwordText);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(290, 290, 250, 22);
-		add(textField_4);
+		addressText = new JTextField();
+		addressText.setColumns(10);
+		addressText.setBounds(290, 290, 250, 22);
+		add(addressText);
 	
 		JButton btnNewButton = new JButton("Create Account");
 		btnNewButton.setBounds(560, 404, 128, 31);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnNewButton) {
-					main.db.insertusers(main.db.getConnection(), textField.getText(), textField_1.getText(), list.getSelectedValue().toString(), textField_4.getText(), textField_2.getText(), textField_3.getText(), 0);
+					main.db.insertusers(main.db.getConnection(), firstNameText.getText(), lastNameText.getText(), list.getSelectedValue().toString(), addressText.getText(), userNameText.getText(), passwordText.getText(), 0);
 					if(list.getSelectedValue().toString().equals("Customer")) {
 						Two_ShoppingPage panel = new Two_ShoppingPage();
 						main.changePanel(panel);
@@ -112,6 +112,7 @@ public class One_CreateAccount extends JPanel{
 						Seven_Manager panel = new Seven_Manager();
 						main.changePanel(panel);
 					}
+					main.db.addShoppingCart(userNameText.getText(), "", "pending");
 					
 				}
 			}
@@ -124,7 +125,6 @@ public class One_CreateAccount extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==alreadyHaveAccount) {
 					Zero_Login panel = new Zero_Login();
-					//Seven_Manager panel = new Seven_Manager();
 					main.changePanel(panel);
 				}
 			}

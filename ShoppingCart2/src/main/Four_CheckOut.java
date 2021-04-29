@@ -70,23 +70,27 @@ public class Four_CheckOut extends JPanel {
 				if(e.getSource()==btnLogout) {
 					Six_LogOut panel = new Six_LogOut();
 					main.changePanel(panel);
+					main.currentUser = "";
+					main.info = "";
+					System.out.println("Logged Out.");
+					System.out.println("Current User:" + main.currentUser);
 				}
 			}
 		});
 		add(btnLogout);
 		
-		JButton returnToLoginButton = new JButton("Back to Login:");
-		returnToLoginButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		returnToLoginButton.setBounds(75, 366, 149, 36);
-		returnToLoginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==returnToLoginButton) {
-					Zero_Login panel = new Zero_Login();
-					main.changePanel(panel);
-				}
-			}
-		});
-		add(returnToLoginButton);
+//		JButton returnToLoginButton = new JButton("Back to Login:");
+//		returnToLoginButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		returnToLoginButton.setBounds(75, 366, 149, 36);
+//		returnToLoginButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				if(e.getSource()==returnToLoginButton) {
+//					Zero_Login panel = new Zero_Login();
+//					main.changePanel(panel);
+//				}
+//			}
+//		});
+//		add(returnToLoginButton);
 	}
 	
 	

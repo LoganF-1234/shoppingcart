@@ -219,6 +219,8 @@ public class Seven_Manager extends JPanel{
 				if(e.getSource()==btnLogOut) {
 					Six_LogOut panel = new Six_LogOut();
 					main.changePanel(panel);
+					main.currentUser = "";
+					System.out.println("Logged Out");
 				}
 			}
 		});

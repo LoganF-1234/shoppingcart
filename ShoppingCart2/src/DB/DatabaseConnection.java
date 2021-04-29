@@ -286,6 +286,11 @@ public class DatabaseConnection {
         return connection;
 	}
 	
+	public void closeConnection() throws SQLException {
+		getConnection().close();
+		System.out.println("Connection closed");
+	}
+	
 	public ArrayList<String> getUsernames(Connection connection) {   
         Statement statement = null;        
         try {
@@ -518,7 +523,7 @@ public class DatabaseConnection {
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sqlCommand =
-                    "INSERT INTO cart(id, user, info) VALUES("+user+", '"+info+"', '"+status+"' );";
+                    "INSERT INTO cart(username, info, status) VALUES('"+user+"', '"+info+"', '"+status+"' );";
             statement.executeUpdate(sqlCommand);
             connection.commit();
             statement.close();
@@ -632,9 +637,5 @@ public class DatabaseConnection {
         return password;
     }
     
-    public boolean usernameWithPassword(Connection connection, String user) {
-    	//using the username see if the password corresponding is correct
-    	
-    	return true;
-    }
+   
 }

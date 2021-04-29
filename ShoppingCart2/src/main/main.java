@@ -21,6 +21,7 @@ public class main extends JFrame {
 	static CardLayoutHelper cardLayout = new CardLayoutHelper();
 	static main frame = new main();
 	static public String info = "";
+	static public String currentUser;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

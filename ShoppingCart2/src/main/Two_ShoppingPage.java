@@ -38,7 +38,7 @@ public class Two_ShoppingPage extends JPanel{
 	
 	private JTextField txtpnOutOfStock;
 	
-	String name, amount, cost;
+	String name, amount, cost, user;
 	
 	String[] arrayItemNames;
 	
@@ -94,7 +94,7 @@ public class Two_ShoppingPage extends JPanel{
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnNewButton_2) {
-					addItem();
+					addItem(main.currentUser);
 				}
 			}
 		});
@@ -205,6 +205,9 @@ public class Two_ShoppingPage extends JPanel{
 				if(e.getSource()==btnLogOut) {
 					Six_LogOut panel = new Six_LogOut();
 					main.changePanel(panel);
+					main.currentUser = "";
+					main.info = "";
+					System.out.println("Logged out");
 				}
 			}
 		});
@@ -316,10 +319,10 @@ public class Two_ShoppingPage extends JPanel{
 	
 	
 	
-	public void addItem() {
+	public void addItem(String user) {
 		String info = main.db.setShoppingCartInfo(name, cost, amount);
 		main.info += info;
-		main.db.updateCart(main.db.getConnection(), "Crayolcold", main.info);
+		main.db.updateCart(main.db.getConnection(), user, main.info);
 	}
 
 }

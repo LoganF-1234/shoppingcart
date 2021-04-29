@@ -86,7 +86,8 @@ public class Zero_Login extends JPanel {
 							if(password.equals(main.db.getPassword(main.db.getConnection(), textUsername))) {
 								Two_ShoppingPage panel = new Two_ShoppingPage();
 								main.changePanel(panel);
-								System.out.println("Logged in as:" + textUsername);
+								main.currentUser = textUsername; // Sets static variable String currentUser to user logged in 
+								System.out.println("Logged in as:" + main.currentUser);	
 								return;
 							} else {
 								errorField.setText("Someone forgot their password");
