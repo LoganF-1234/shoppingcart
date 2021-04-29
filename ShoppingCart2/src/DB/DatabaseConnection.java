@@ -317,7 +317,6 @@ public class DatabaseConnection {
 		for(int i =0; i< usernames.size(); i++) {
 			if(usernames.get(i).equals(username)) {
 				user += username;
-				System.out.println("Logged in as:" + user);
 			}
 		}
 		return user;
@@ -635,6 +634,7 @@ public class DatabaseConnection {
     
     public boolean usernameWithPassword(Connection connection, String user) {
     	//using the username see if the password corresponding is correct
+    	
     	return true;
     }
 }

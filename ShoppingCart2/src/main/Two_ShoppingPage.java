@@ -7,6 +7,8 @@ import javax.swing.JTextPane;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
@@ -214,7 +216,8 @@ public class Two_ShoppingPage extends JPanel{
 		//System.out.println(arrayItemNames);
 		comboItems = new JComboBox(arrayItemNames);
 		comboItems.setSelectedIndex(1);
-		comboItems.setBounds(39, 147, 372, 23);
+		comboItems.setBounds(39, 147, 372, 30);
+		comboItems.setMaximumRowCount(15);
 		comboItems.addActionListener(new ComboListener());
 		add(comboItems);
 		//System.out.println(main.db.getItemnames(main.db.getConnection()));

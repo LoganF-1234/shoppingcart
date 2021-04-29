@@ -77,17 +77,29 @@ public class Zero_Login extends JPanel {
 				if(e.getSource()==signInButton) {
 					String textUsername = textFieldUsername.getText();
 					char[] textPassword = textFieldPassword.getPassword();
-//HERE	
+					String password = "";
+					for(int i = 0; i< textPassword.length; i++) {
+						password += textPassword[i];
+					}
 					if(!(textUsername.equals("")) && !(textPassword.length == 0)) {
 						if(main.db.userInArray(textUsername) == true) {
+							if(password.equals(main.db.getPassword(main.db.getConnection(), textUsername))) {
+								Two_ShoppingPage panel = new Two_ShoppingPage();
+								main.changePanel(panel);
+								System.out.println("Logged in as:" + textUsername);
+								return;
+							} else {
+								errorField.setText("Someone forgot their password");
+							}
 							//System.out.println(main.db.getPassword(main.db.getConnection(), "Crayolcold"));
-							Two_ShoppingPage panel = new Two_ShoppingPage();
-							main.changePanel(panel);
+							
+						} else {
+							errorField.setText("Username not found");
 							return;
 						}
 						
 					} else {
-						errorField.setText("Username not found");
+						errorField.setText("Please enter username and password");
 						return;
 					}
 				}
@@ -97,7 +109,7 @@ public class Zero_Login extends JPanel {
 		
 		errorField = new JTextField();
 		errorField.setBackground(Color.WHITE);
-		errorField.setBounds(244, 359, 127, 29);
+		errorField.setBounds(160, 359, 300, 29);
 		add(errorField);
 		errorField.setColumns(10);
 		
