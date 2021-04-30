@@ -384,8 +384,9 @@ public class DatabaseConnection {
 	//USED FOR COMBOBOX IN TWO_SHOPPINGCART
 	public String[] itemNamesArray(Connection connection) {
 		 Statement statement = null;        
+		 int arraySize = numRowsInTable(getConnection(), "items");
 	        try {
-	        itemNamesArray = new String[100];
+	        itemNamesArray = new String[arraySize];
 	        statement = connection.createStatement();
 	       // select(connection, "users");
 	        String sqlCommand =
@@ -408,11 +409,34 @@ public class DatabaseConnection {
 	        
 	}
 	
+	public int numRowsInTable(Connection connection, String table) {
+		 Statement statement = null;   
+     	int numRows = 0;
+	        try {
+	        statement = connection.createStatement();
+	        String sqlCommand =
+	                 "SELECT COUNT(*) FROM "+table+";";
+	        ResultSet resultSet = statement.executeQuery(sqlCommand);    
+
+	        while (resultSet.next()) {	        	
+	        	numRows = Integer.parseInt(resultSet.getString("count"));
+	        	
+	           
+	        } 
+	        statement.close();
+	        System.out.println("Item name fetched..");
+	        }catch (Exception e) {
+	            System.err.println(e.getClass());
+	        }
+	        
+	        return numRows;
+	        
+	}
 	//USED FOR COMBOBOX IN TWO_SHOPPINGCART
 		public String[] itemsDatabaseArray(Connection connection) {
-			 Statement statement = null;        
+			 Statement statement = null;  
 		        try {
-		        itemNamesArray = new String[100];
+		        itemNamesArray = new String[10000];
 		        statement = connection.createStatement();
 		       // select(connection, "users");
 		        String sqlCommand =
