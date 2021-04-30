@@ -41,7 +41,7 @@ public class Four_CheckOut extends JPanel {
 		//txtpnXEggs.setText("" + main.db.decodeInfo(main.db.grabCartInfo(main.db.getConnection(), main.currentUser)));
 		txtpnXEggs.setText(output);
 		txtpnXEggs.setBackground(Color.LIGHT_GRAY);
-		txtpnXEggs.setBounds(455, 132, 256, 254);
+		txtpnXEggs.setBounds(455, 132, 256, 350);
 		add(txtpnXEggs);
 		
 		JTextPane txtpnCheckOut = new JTextPane();

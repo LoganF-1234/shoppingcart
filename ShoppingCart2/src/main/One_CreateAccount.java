@@ -152,6 +152,5 @@ public class One_CreateAccount extends JPanel{
 		add(txtrPosition);
 		
 		
-		
 	}
 }

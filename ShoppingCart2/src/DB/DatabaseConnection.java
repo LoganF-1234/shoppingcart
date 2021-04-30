@@ -487,7 +487,7 @@ public class DatabaseConnection {
 		}
 		
 
-		System.out.println(groupNumber); //how many items are in this String
+		System.out.println("Amount of items in this cart:" + groupNumber); //how many items are in this String
 		for(int f = 0; f < groupNumber; f++) { //for the amnount of items we have in this string, seperate them each into repsective catagories each containg the items name price and amount
 		
 			for(int i = 0; i < 3; i++) { //each "substring" contains the itemname, price, and amount, so we will iterate through this three times to get all of those variables

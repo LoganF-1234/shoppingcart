@@ -36,13 +36,15 @@ public class Two_ShoppingPage extends JPanel{
 	private JTextPane txtfieldABeautifulEgg, textPane, txtpnPerDozen, 
 					  txtpnInstockLeft;
 	
-	private JTextField txtpnOutOfStock;
+	private JTextField txtpnOutOfStock, amountField;
 	
 	String name, amount, cost, user;
 	
-	String[] arrayItemNames;
+	String[] arrayItemNames, stuff;
 	
 	private JComboBox comboItems;
+	
+	static int itemDatabasePosition;
 		
 	public Two_ShoppingPage() {
 		initialize();
@@ -100,17 +102,23 @@ public class Two_ShoppingPage extends JPanel{
 		});
 		add(btnNewButton_2);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setBackground(Color.GRAY);
-		textArea.setLineWrap(true);
-		textArea.setText("4");
-		textArea.setBounds(459, 479, 46, 22);
-		add(textArea);
+		JTextPane amountPane = new JTextPane();
+		amountPane.setEditable(false);
+		amountPane.setText("Enter Amount: ");
+		amountPane.setBounds(442, 450, 100, 22);
+		add(amountPane);
+		
+		amountField = new JTextField();
+		amountField.setEditable(true);
+		amountField.setBackground(Color.LIGHT_GRAY);
+		//amountField.setLineWrap(true);
+		amountField.setText("1");
+		amountField.setBounds(459, 479, 46, 22);
+		add(amountField);
 		
 		textPane = new JTextPane();
 		textPane.setEditable(false);
-		textPane.setText("$2.69");
+		textPane.setText("");
 		textPane.setBounds(459, 349, 46, 20);
 		add(textPane);
 		
@@ -155,13 +163,13 @@ public class Two_ShoppingPage extends JPanel{
 		
 		txtfieldABeautifulEgg = new JTextPane();
 		txtfieldABeautifulEgg.setEditable(false);
-		txtfieldABeautifulEgg.setText("A beautiful egg.");
+		txtfieldABeautifulEgg.setText("Please choose an item from the dropdown...");
 		txtfieldABeautifulEgg.setBounds(459, 183, 370, 23);
 		add(txtfieldABeautifulEgg);
 		
 		txtpnInstockLeft = new JTextPane();
 		txtpnInstockLeft.setEditable(false);
-		txtpnInstockLeft.setText("In-Stock: 240 left");
+		txtpnInstockLeft.setText("");
 		txtpnInstockLeft.setBounds(459, 217, 205, 23);
 		add(txtpnInstockLeft);
 		
@@ -273,8 +281,9 @@ public class Two_ShoppingPage extends JPanel{
 	
 	public class ComboListener implements ActionListener { //This action listener will need to be able to compare the array of just item names to the array of all item information in the for loop
 		int itemPosition =0; 
-		int itemDatabasePosition= 0;
 		public void actionPerformed(ActionEvent e) {
+		itemDatabasePosition= 0;
+
 		String itemName = (String)comboItems.getSelectedItem();
 		
 		/* itemPosition and itemDatabasePosition will be "linked" so that the int they carry will be the respectiv eindexes of where the same item name is in the respective arrays
@@ -304,14 +313,19 @@ public class Two_ShoppingPage extends JPanel{
 				} 
 			}
 			if(itemName == arrayItemNames[itemPosition]) { //use the itemDatabasePosition from above to add items at indexes near it in the array into the corresponding text panes. See line 277.
-            	String[] stuff = main.db.itemsDatabaseArray(main.db.getConnection());
+            	stuff = main.db.itemsDatabaseArray(main.db.getConnection());
                 txtfieldABeautifulEgg.setText(stuff[itemDatabasePosition] + "                        " + stuff[itemDatabasePosition+3]);
                 name = stuff[itemDatabasePosition];
-                amount = stuff[itemDatabasePosition+2];
+               
+                //amount = stuff[itemDatabasePosition+2];
                 cost = stuff[itemDatabasePosition+1];
                 textPane.setText("$" + stuff[itemDatabasePosition+1]);
                 //txtpnPerDozen.setText("Per Dozen");
-                txtpnInstockLeft.setText("In-Stock: " + stuff[itemDatabasePosition+2] +" left");               
+                if(Integer.parseInt(stuff[itemDatabasePosition +2]) != 0) { //only show in stock if there are any left of the item in  the database
+                    txtpnInstockLeft.setText("In-Stock: " + stuff[itemDatabasePosition+2] +" left");               
+                } else { 
+                    txtpnInstockLeft.setText("Out-of-stock");               
+                }
             }
         }
 			
@@ -320,6 +334,14 @@ public class Two_ShoppingPage extends JPanel{
 	
 	
 	public void addItem(String user) {
+		if(amountField.getText().equals("")) {
+			amount = "1";
+		} else if(Integer.parseInt(amountField.getText()) <= Integer.parseInt(stuff[itemDatabasePosition+2])) {
+         	amount = amountField.getText();
+        } else {
+         	System.out.println("Not enough items in stock");
+         	System.exit(1);
+         }
 		String info = main.db.setShoppingCartInfo(name, cost, amount);
 		main.info += info;
 		main.db.updateCart(main.db.getConnection(), user, main.info);
