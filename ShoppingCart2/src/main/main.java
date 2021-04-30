@@ -22,6 +22,7 @@ public class main extends JFrame {
 	static main frame = new main();
 	static public String info = "";
 	static public String currentUser;
+	static public String currentUserPosition;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -37,13 +38,6 @@ public class main extends JFrame {
 		});
 	}
 	
-	public static void changePanel(JPanel panel) {
-		frame.remove(cardLayout.getCardPanel());
-		frame.add(panel);
-		cardLayout.setPanel(panel);
-	}
-
-
 	public main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 852, 634);
@@ -52,5 +46,19 @@ public class main extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 	}
+	
+	public static void changePanel(JPanel panel) {
+		frame.remove(cardLayout.getCardPanel());
+		frame.add(panel);
+		cardLayout.setPanel(panel);
+	}
+	
+	public static void resetOnLogout() {
+		info = "";
+		currentUser = "";
+		currentUserPosition = "";
+	}
 
+
+	
 }

@@ -662,5 +662,27 @@ public class DatabaseConnection {
         return password;
     }
     
-   
+   public boolean isManager(String user) {
+	   Statement statement = null;   
+	   boolean bool = false;
+       try {
+       statement = connection.createStatement();
+      // select(connection, "users");
+       String sqlCommand =
+                "SELECT position FROM users WHERE username = '"+user+"';";
+       ResultSet resultSet = statement.executeQuery(sqlCommand);    
+       while (resultSet.next()) {
+    	   if(resultSet.getString("position").equals("Manager")) {
+    		   bool = true;
+    	   } else {
+    		   bool =  false;
+    	   }
+       }
+       
+       statement.close();
+       }catch (Exception e) {
+           System.err.println(e.getClass());
+       }
+       return bool;
+   }
 }

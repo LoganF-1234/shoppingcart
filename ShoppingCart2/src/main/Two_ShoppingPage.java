@@ -213,8 +213,7 @@ public class Two_ShoppingPage extends JPanel{
 				if(e.getSource()==btnLogOut) {
 					Six_LogOut panel = new Six_LogOut();
 					main.changePanel(panel);
-					main.currentUser = "";
-					main.info = "";
+					main.resetOnLogout();
 					System.out.println("Logged out");
 				}
 			}

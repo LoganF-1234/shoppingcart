@@ -80,8 +80,7 @@ public class Four_CheckOut extends JPanel {
 				if(e.getSource()==btnLogout) {
 					Six_LogOut panel = new Six_LogOut();
 					main.changePanel(panel);
-					main.currentUser = "";
-					main.info = "";
+					main.resetOnLogout();
 					System.out.println("Logged Out.");
 					System.out.println("Current User:" + main.currentUser);
 				}
