@@ -1,4 +1,5 @@
 package main;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -6,15 +7,20 @@ import javax.swing.JTextPane;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 
 import DB.DatabaseConnection;
-import main.Two_ShoppingPage.ComboListener;
 
 import java.awt.Canvas;
 import java.awt.Panel;
@@ -24,7 +30,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Seven_Manager extends JPanel{
@@ -33,21 +38,18 @@ public class Seven_Manager extends JPanel{
 					button11, button12, buttonLogOut;
 	
 	private JTextPane txtfieldABeautifulEgg, textPane, txtpnPerDozen, 
-					  txtpnInstockLeft;
+					  txtpnInstockLeft, itemDescPane, cartUpdatePane;
 	
-	private JTextField txtpnOutOfStock;
+	private JTextField txtpnOutOfStock, amountField;
 	
-	String name, amount, cost;
+	String name, amount, cost, user;
+	
+	String[] arrayItemNames, stuff;
+	
+	private JComboBox comboItems;
+	
+	static int itemDatabasePosition;
 		
-	int buttonNum = 0;
-	
-	JOptionPane optionPane;
-	
-	String[] arrayItemNames;
-	
-	JComboBox comboItems = new JComboBox();
-	
-	
 	public Seven_Manager() {
 		initialize();
 	}
@@ -62,21 +64,11 @@ public class Seven_Manager extends JPanel{
 		JTextPane txtpnShoppingPage = new JTextPane();
 		txtpnShoppingPage.setEditable(false);
 		txtpnShoppingPage.setFont(new Font("Tahoma", Font.PLAIN, 33));
-		txtpnShoppingPage.setBounds(10, 11, 400, 52);
+		txtpnShoppingPage.setBounds(10, 11, 500, 52);
 		txtpnShoppingPage.setText("Shopping Page ~ Manager View");
 		add(txtpnShoppingPage);
 
-		JButton deleteButton = new JButton("Delete");
-		deleteButton.setBounds(593, 478, 100, 23);
-		deleteButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==deleteButton) {
-					optionPane.showMessageDialog(null, "deleted");
-					//main.db.decodeInfo(main.db.setShoppingCartInfo("banana", Integer.toString(342), Integer.toString(123)) + main.db.setShoppingCartInfo("strawberry", Integer.toString(342), Integer.toString(123)));
-				}
-			}
-		});
-		add(deleteButton);
+
 		
 		JButton checkOutButton = new JButton("Check Out");
 		checkOutButton.setBounds(593, 478, 100, 23);
@@ -108,24 +100,30 @@ public class Seven_Manager extends JPanel{
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnNewButton_2) {
-					addItem();
+					addItem(main.currentUser);
 				}
 			}
 		});
 		add(btnNewButton_2);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setBackground(Color.GRAY);
-		textArea.setLineWrap(true);
-		textArea.setText("4");
-		textArea.setBounds(459, 479, 46, 22);
-		add(textArea);
+		JTextPane amountPane = new JTextPane();
+		amountPane.setEditable(false);
+		amountPane.setText("Enter Amount: ");
+		amountPane.setBounds(442, 450, 100, 22);
+		add(amountPane);
+		
+		amountField = new JTextField();
+		amountField.setEditable(true);
+		amountField.setBackground(Color.LIGHT_GRAY);
+		//amountField.setLineWrap(true);
+		amountField.setText("1");
+		amountField.setBounds(459, 479, 46, 22);
+		add(amountField);
 		
 		textPane = new JTextPane();
 		textPane.setEditable(false);
-		textPane.setText("$2.69");
-		textPane.setBounds(459, 349, 46, 20);
+		textPane.setText("");
+		textPane.setBounds(459, 260, 46, 20);
 		add(textPane);
 		
 		JTextPane txtpnPerDozen = new JTextPane();
@@ -169,14 +167,19 @@ public class Seven_Manager extends JPanel{
 		
 		txtfieldABeautifulEgg = new JTextPane();
 		txtfieldABeautifulEgg.setEditable(false);
-		txtfieldABeautifulEgg.setText("A beautiful egg.");
-		txtfieldABeautifulEgg.setBounds(459, 183, 370, 23);
+		txtfieldABeautifulEgg.setText("Please choose an item from the dropdown...");
+		txtfieldABeautifulEgg.setBounds(459, 140, 370, 55);
 		add(txtfieldABeautifulEgg);
+		
+		itemDescPane = new JTextPane();
+		itemDescPane.setEditable(false);
+		itemDescPane.setBounds(459, 195, 370, 23);
+		add(itemDescPane);
 		
 		txtpnInstockLeft = new JTextPane();
 		txtpnInstockLeft.setEditable(false);
-		txtpnInstockLeft.setText("In-Stock: 240 left");
-		txtpnInstockLeft.setBounds(459, 217, 205, 23);
+		txtpnInstockLeft.setText("");
+		txtpnInstockLeft.setBounds(459, 230, 205, 23);
 		add(txtpnInstockLeft);
 		
 		txtpnOutOfStock = new JTextField();
@@ -185,6 +188,12 @@ public class Seven_Manager extends JPanel{
 		//btnNewButton_2.txtpnOutOfStock.setText("Out of Stock");
 		txtpnOutOfStock.setBounds(459, 239, 159, 23);
 		add(txtpnOutOfStock);
+		
+		cartUpdatePane = new JTextPane();
+		cartUpdatePane.setFont(new Font("Tacoma", Font.ITALIC, 13));
+		cartUpdatePane.setText("");
+		cartUpdatePane.setBounds(459, 505, 350, 25);
+		add(cartUpdatePane);
 		
 		JSeparator separator_4 = new JSeparator();
 		separator_4.setBackground(Color.BLACK);
@@ -220,59 +229,86 @@ public class Seven_Manager extends JPanel{
 					Six_LogOut panel = new Six_LogOut();
 					main.changePanel(panel);
 					main.resetOnLogout();
-					System.out.println("Logged Out");
+					System.out.println("Logged out");
 				}
 			}
 		});
 		add(btnLogOut);
 		
+		
+		//TRYING TO MAKE COMBO BOX ISNTEAD OF BUTTONS
 		arrayItemNames = main.db.itemNamesArray(main.db.getConnection());
+		//System.out.println(arrayItemNames);
 		comboItems = new JComboBox(arrayItemNames);
-		comboItems.setSelectedIndex(1);
-		comboItems.setBounds(39, 147, 372, 23);
+		comboItems.setSelectedIndex(0);
+		comboItems.setBounds(39, 147, 372, 30);
+		comboItems.setMaximumRowCount(15);
 		comboItems.addActionListener(new ComboListener());
 		add(comboItems);
 
+		JButton addItemButton = new JButton("Add Item to Inventory");
+		addItemButton.setBounds(48, 494, 169, 34);
+		add(addItemButton);
+		
+		JButton deleteItemButton = new JButton("Remove Item From Inventory");
+		deleteItemButton.setBounds(235, 494, 169, 34);
+		add(deleteItemButton);
 	}
 	
-	public class ComboListener implements ActionListener { //ComboBox described in Two_ShoppingPage
+	public class ComboListener implements ActionListener { //See Two_ShoppingPage for the explanation of thiss code
 		int itemPosition =0; 
-		int itemDatabasePosition= 0;
 		public void actionPerformed(ActionEvent e) {
+		itemDatabasePosition= 0;
+
 		String itemName = (String)comboItems.getSelectedItem();
+		
 		for(int j= 0; j < arrayItemNames.length; j++ ) {
 				if(arrayItemNames[j] == itemName) { 
 					itemPosition = j; 
-					if( itemPosition == 0 ) { 
+					if( itemPosition == 0 ) {
 						itemDatabasePosition = 2; 
-
 					} else {
-						itemDatabasePosition = itemPosition*6 +2 ; //
-					}
-					
+						itemDatabasePosition = itemPosition*6 +2 ; 
+					}			
 				} 
 			}
 			if(itemName == arrayItemNames[itemPosition]) { 
-            	String[] stuff = main.db.itemsDatabaseArray(main.db.getConnection());
-                txtfieldABeautifulEgg.setText(stuff[itemDatabasePosition] + "                        " + stuff[itemDatabasePosition+3]);
+            	stuff = main.db.itemsDatabaseArray(main.db.getConnection());     
+            	txtfieldABeautifulEgg.setFont(new Font("Tahoma", Font.BOLD, 35));
+                txtfieldABeautifulEgg.setText(stuff[itemDatabasePosition]);
+            	itemDescPane.setText(stuff[itemDatabasePosition + 3]);
                 name = stuff[itemDatabasePosition];
-                amount = stuff[itemDatabasePosition+2];
                 cost = stuff[itemDatabasePosition+1];
                 textPane.setText("$" + stuff[itemDatabasePosition+1]);
                 //txtpnPerDozen.setText("Per Dozen");
-                txtpnInstockLeft.setText("In-Stock: " + stuff[itemDatabasePosition+2] +" left");               
+                if(Integer.parseInt(stuff[itemDatabasePosition +2]) != 0) { 
+                    txtpnInstockLeft.setText("In-Stock: " + stuff[itemDatabasePosition+2] +" left");               
+                } else { 
+                    txtpnInstockLeft.setText("Out-of-stock");               
+                }
             }
         }
 			
 	}
 	
-	
-	
-	public void addItem() {
+	public void addItem(String user) {
+		if(amountField.getText().equals("")) {
+			amount = "1";
+			cartUpdatePane.setText("One " + name + " added to cart.");
+		} else if(Integer.parseInt(amountField.getText()) <= Integer.parseInt(stuff[itemDatabasePosition+2])) {
+         	amount = amountField.getText();
+         	cartUpdatePane.setText(amount + "x " + name + " added to cart.");
+
+        } else {
+         	System.out.println("Not enough items in stock");
+         	System.exit(1);
+         }
 		String info = main.db.setShoppingCartInfo(name, cost, amount);
 		main.info += info;
-		main.db.updateCart(main.db.getConnection(), "Crayolcold", main.info);
+		main.db.updateCart(main.db.getConnection(), user, main.info);
 	}
 
 }
+	
+
 	
