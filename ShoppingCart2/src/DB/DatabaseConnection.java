@@ -77,20 +77,20 @@ public class DatabaseConnection {
         System.out.println("Table Created...");
     }
 
-    public void insertitems(Connection connection, String type, String name, double price, int amount, String description)
+    public void insertitems(Connection connection, int id, String type, String name, double price, int amount, String description)
     {
         Statement statement = null;
         try{
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sqlCommand =
-                    "INSERT INTO items("
+                    "INSERT INTO items(ID, "
                     + "TYPE, "
                     + "NAME, "
                     + "PRICE, "
                     + "AMOUNT, "
                     + "DESCRIPTION) ";
-            sqlCommand += String.format("VALUES('%s', '%s', %.2f, %d, '%s');",type,name,price,amount,description);
+            sqlCommand += String.format("VALUES('%d', '%s', '%s', %.2f, %d, '%s');",id,type,name,price,amount,description);
             statement.executeUpdate(sqlCommand);
             statement.close();
             connection.commit();
@@ -103,6 +103,33 @@ public class DatabaseConnection {
             System.err.println("Catch all Exception occurred: "+e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
+    }
+    
+    public int nextUniqueID() {
+    	 Statement statement = null;
+    	 String id = "";
+         try{
+             connection.setAutoCommit(false);
+             statement = connection.createStatement();
+             String sqlCommand =
+                     "SELECT ID FROM items ORDER BY ID DESC LIMIT 1;";
+             ResultSet resultSet = statement.executeQuery(sqlCommand);    
+             while(resultSet.next()) {
+            	 id = resultSet.getString("id");
+             }
+             statement.close();
+             connection.commit();
+             System.out.println("Data Inserted...");
+         } catch (SQLException e) {
+             e.printStackTrace();
+             System.exit(0);
+         } catch (Exception e) {
+             e.printStackTrace();
+             System.err.println("Catch all Exception occurred: "+e.getClass().getName()+": "+e.getMessage());
+             System.exit(0);
+         }
+         
+         return Integer.parseInt(id);
     }
     
     public void insertusers(Connection connection, String firstname, String lastname, String position, String address, String username, String password, int salary) {

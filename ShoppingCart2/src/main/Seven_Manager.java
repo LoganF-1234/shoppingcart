@@ -33,9 +33,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 public class Seven_Manager extends JPanel{
-	private JButton button1, button2, button3,button4, button5, button6,
-					button7 ,button8, button9, button10, 
-					button11, button12, buttonLogOut;
 	
 	private JTextPane txtfieldABeautifulEgg, textPane, txtpnPerDozen, 
 					  txtpnInstockLeft, itemDescPane, cartUpdatePane;
@@ -248,6 +245,14 @@ public class Seven_Manager extends JPanel{
 
 		JButton addItemButton = new JButton("Add Item to Inventory");
 		addItemButton.setBounds(48, 494, 169, 34);
+		addItemButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==addItemButton) {
+					Eight_ManagerAdd panel = new Eight_ManagerAdd();
+					main.changePanel(panel);
+				}
+			}
+		});		
 		add(addItemButton);
 		
 		JButton deleteItemButton = new JButton("Remove Item From Inventory");
