@@ -71,11 +71,13 @@ public class Eight_ManagerAdd extends JPanel {
 		
 		priceField = new JTextField();
 		priceField.setBounds(300, 250, 250, 30);
+		priceField.setText("");
 		priceField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(priceField);
 		
 		amountField = new JTextField();
 		amountField.setBounds(300, 300, 250, 30);
+		amountField.setText("");
 		amountField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(amountField);
 		
@@ -109,18 +111,37 @@ public class Eight_ManagerAdd extends JPanel {
 		int id; //need to specify since it automatically assumes the id starts at one
 		String name;
 		String type;
+		String tempPrice;
+		String tempAmount;
+		String description;
 		double price;
 		int amount;
-		String description;
 		public void actionPerformed(ActionEvent e) {
 			id = main.db.nextUniqueID() + 1; // get the id of the last item in out items table and add one to it for a new id
 			name = nameField.getText();
 			type = typeField.getText();
-			price = Double.parseDouble(priceField.getText());
-			amount = Integer.parseInt( amountField.getText());
+			tempPrice = priceField.getText();
+			tempAmount = amountField.getText();
 			description = descField.getText();
-			main.db.insertitems(main.db.getConnection(), id, type, name, price, amount, description);
+			if(!(name.equals("") || type.equals("") || tempPrice.equals("") || tempAmount.equals("")|| description.equals(""))) {
+				price = Double.parseDouble(tempPrice);
+				amount = Integer.parseInt(tempAmount);
+				main.db.insertitems(main.db.getConnection(), id, type, name, price, amount, description);
+			} else{
+				resetItems();
+				System.out.println("No data inserted");
+			}
+		
 		}
+	}
+	
+	public void resetItems() {
+		nameField.setText("");
+		typeField.setText("");
+		priceField.setText("");
+		amountField.setText("");
+		descField.setText("");
+
 	}
 }
 

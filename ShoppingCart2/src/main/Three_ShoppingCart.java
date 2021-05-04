@@ -52,8 +52,14 @@ public class Three_ShoppingCart extends JPanel {
 		btnCheckOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnCheckOut) {
-					Two_ShoppingPage panel = new Two_ShoppingPage();
-					main.changePanel(panel);
+					if(main.currentUserPosition.equals("Manager")) {
+						Seven_Manager panel = new Seven_Manager();
+						main.changePanel(panel);
+					} else {
+						Two_ShoppingPage panel = new Two_ShoppingPage();
+						main.changePanel(panel);
+					}
+					
 				}
 			}
 		});

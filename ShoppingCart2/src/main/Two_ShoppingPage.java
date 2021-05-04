@@ -155,11 +155,12 @@ public class Two_ShoppingPage extends JPanel{
 		separator_3.setBounds(825, 134, 2, 406);
 		add(separator_3);
 
-		TextField textField = new TextField();
+		/*TextField textField = new TextField();
 		textField.setText("Search for an item...");
 		textField.setFont(new Font("Dialog", Font.PLAIN, 15));
 		textField.setBounds(29, 106, 797, 22);
 		add(textField);
+		*/
 		
 		txtfieldABeautifulEgg = new JTextPane();
 		txtfieldABeautifulEgg.setEditable(false);

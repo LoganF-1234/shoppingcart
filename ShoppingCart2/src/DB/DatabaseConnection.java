@@ -119,7 +119,6 @@ public class DatabaseConnection {
              }
              statement.close();
              connection.commit();
-             System.out.println("Data Inserted...");
          } catch (SQLException e) {
              e.printStackTrace();
              System.exit(0);
@@ -267,21 +266,20 @@ public class DatabaseConnection {
         }
     }
 
-    public void delete(Connection connection, String table, int id)
+    public void delete(Connection connection, String name)
     {
         Statement statement = null;
         try{
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sqlCommand =
-                    "DELETE from items where ID = "+id+";";
+                    "DELETE from items where name = '"+name+"';";
             statement.executeUpdate(sqlCommand);
             connection.commit();
             statement.close();
             System.out.println("Data Deleted...");
             
             
-            select(connection, table);
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);

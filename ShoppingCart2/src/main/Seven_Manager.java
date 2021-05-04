@@ -64,8 +64,6 @@ public class Seven_Manager extends JPanel{
 		txtpnShoppingPage.setBounds(10, 11, 500, 52);
 		txtpnShoppingPage.setText("Shopping Page ~ Manager View");
 		add(txtpnShoppingPage);
-
-
 		
 		JButton checkOutButton = new JButton("Check Out");
 		checkOutButton.setBounds(593, 478, 100, 23);
@@ -112,7 +110,6 @@ public class Seven_Manager extends JPanel{
 		amountField = new JTextField();
 		amountField.setEditable(true);
 		amountField.setBackground(Color.LIGHT_GRAY);
-		//amountField.setLineWrap(true);
 		amountField.setText("1");
 		amountField.setBounds(459, 479, 46, 22);
 		add(amountField);
@@ -165,7 +162,7 @@ public class Seven_Manager extends JPanel{
 		txtfieldABeautifulEgg = new JTextPane();
 		txtfieldABeautifulEgg.setEditable(false);
 		txtfieldABeautifulEgg.setText("Please choose an item from the dropdown...");
-		txtfieldABeautifulEgg.setBounds(459, 140, 370, 55);
+		txtfieldABeautifulEgg.setBounds(459, 140, 300, 55);
 		add(txtfieldABeautifulEgg);
 		
 		itemDescPane = new JTextPane();
@@ -232,10 +229,7 @@ public class Seven_Manager extends JPanel{
 		});
 		add(btnLogOut);
 		
-		
-		//TRYING TO MAKE COMBO BOX ISNTEAD OF BUTTONS
 		arrayItemNames = main.db.itemNamesArray(main.db.getConnection());
-		//System.out.println(arrayItemNames);
 		comboItems = new JComboBox(arrayItemNames);
 		comboItems.setSelectedIndex(0);
 		comboItems.setBounds(39, 147, 372, 30);
@@ -257,10 +251,18 @@ public class Seven_Manager extends JPanel{
 		
 		JButton deleteItemButton = new JButton("Remove Item From Inventory");
 		deleteItemButton.setBounds(235, 494, 169, 34);
+		deleteItemButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == deleteItemButton) {
+					Nine_ManagerRemove panel = new Nine_ManagerRemove();
+					main.changePanel(panel);
+				}
+			}
+		});
 		add(deleteItemButton);
 	}
 	
-	public class ComboListener implements ActionListener { //See Two_ShoppingPage for the explanation of thiss code
+	public class ComboListener implements ActionListener { //See Two_ShoppingPage for the explanation of this code
 		int itemPosition =0; 
 		public void actionPerformed(ActionEvent e) {
 		itemDatabasePosition= 0;
