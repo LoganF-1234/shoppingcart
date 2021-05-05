@@ -241,21 +241,19 @@ public class DatabaseConnection {
     } */
 
     
-    public void update(Connection connection, String table, int id, int amount)
+    public void update(Connection connection, String name, int amount)
     {
         Statement statement = null;
         try{
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sqlCommand =
-                    "UPDATE items amount = "+amount+"where ID = "+id+";";
+                    "UPDATE items SET amount = "+amount+" WHERE name = '"+name+"';";
             statement.executeUpdate(sqlCommand);
             connection.commit();
             statement.close();
             System.out.println("Data Updated...");
 
-
-            select(connection, table);
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);

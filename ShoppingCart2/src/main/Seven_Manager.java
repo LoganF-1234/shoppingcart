@@ -260,6 +260,16 @@ public class Seven_Manager extends JPanel{
 			}
 		});
 		add(deleteItemButton);
+		
+		JButton updateItemButton = new JButton("Update Stock");
+		updateItemButton.setBounds(141, 455, 169, 34);
+		updateItemButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Ten_ManagerUpdate panel = new Ten_ManagerUpdate();
+				main.changePanel(panel);
+			}
+		});
+		add(updateItemButton);
 	}
 	
 	public class ComboListener implements ActionListener { //See Two_ShoppingPage for the explanation of this code
