@@ -152,12 +152,6 @@ public class Seven_Manager extends JPanel{
 		separator_3.setOrientation(SwingConstants.VERTICAL);
 		separator_3.setBounds(825, 134, 2, 406);
 		add(separator_3);
-
-		TextField textField = new TextField();
-		textField.setText("Search for an item...");
-		textField.setFont(new Font("Dialog", Font.PLAIN, 15));
-		textField.setBounds(29, 106, 797, 22);
-		add(textField);
 		
 		txtfieldABeautifulEgg = new JTextPane();
 		txtfieldABeautifulEgg.setEditable(false);
@@ -167,7 +161,7 @@ public class Seven_Manager extends JPanel{
 		
 		itemDescPane = new JTextPane();
 		itemDescPane.setEditable(false);
-		itemDescPane.setBounds(459, 195, 370, 23);
+		itemDescPane.setBounds(459, 195, 300, 23);
 		add(itemDescPane);
 		
 		txtpnInstockLeft = new JTextPane();
@@ -312,17 +306,20 @@ public class Seven_Manager extends JPanel{
 		if(amountField.getText().equals("")) {
 			amount = "1";
 			cartUpdatePane.setText("One " + name + " added to cart.");
+			String info = main.db.setShoppingCartInfo(name, cost, amount);
+			main.info += info;
+			main.db.updateCart(main.db.getConnection(), user, main.info);
 		} else if(Integer.parseInt(amountField.getText()) <= Integer.parseInt(stuff[itemDatabasePosition+2])) {
          	amount = amountField.getText();
          	cartUpdatePane.setText(amount + "x " + name + " added to cart.");
-
+         	String info = main.db.setShoppingCartInfo(name, cost, amount);
+    		main.info += info;
+    		main.db.updateCart(main.db.getConnection(), user, main.info);
         } else {
          	System.out.println("Not enough items in stock");
-         	System.exit(1);
-         }
-		String info = main.db.setShoppingCartInfo(name, cost, amount);
-		main.info += info;
-		main.db.updateCart(main.db.getConnection(), user, main.info);
+         	cartUpdatePane.setText("Not enough items in stock.");
+        }
+		
 	}
 
 }

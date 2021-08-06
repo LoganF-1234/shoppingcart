@@ -45,6 +45,8 @@ public class Two_ShoppingPage extends JPanel{
 	private JComboBox comboItems;
 	
 	static int itemDatabasePosition;
+	
+	int databaseAmount, newAmount;
 		
 	public Two_ShoppingPage() {
 		initialize();
@@ -335,7 +337,7 @@ public class Two_ShoppingPage extends JPanel{
                 textPane.setText("$" + stuff[itemDatabasePosition+1]);
                 //txtpnPerDozen.setText("Per Dozen");
                 if(Integer.parseInt(stuff[itemDatabasePosition +2]) != 0) { //only show in stock if there are any left of the item in  the database
-                    txtpnInstockLeft.setText("In-Stock: " + stuff[itemDatabasePosition+2] +" left");               
+                    txtpnInstockLeft.setText("In-Stock: " + stuff[itemDatabasePosition+2] +" left");   
                 } else { 
                     txtpnInstockLeft.setText("Out-of-stock");               
                 }
@@ -350,16 +352,20 @@ public class Two_ShoppingPage extends JPanel{
 		if(amountField.getText().equals("")) {
 			amount = "1";
 			cartUpdatePane.setText("One " + name + " added to cart.");
+			String info = main.db.setShoppingCartInfo(name, cost, amount);
+			main.info += info;
+			main.db.updateCart(main.db.getConnection(), user, main.info);
 		} else if(Integer.parseInt(amountField.getText()) <= Integer.parseInt(stuff[itemDatabasePosition+2])) {
          	amount = amountField.getText();
          	cartUpdatePane.setText(amount + "x " + name + " added to cart.");
+        	String info = main.db.setShoppingCartInfo(name, cost, amount);
+    		main.info += info;
+    		main.db.updateCart(main.db.getConnection(), user, main.info);
         } else {
          	System.out.println("Not enough items in stock");
-         	System.exit(1);
-         }
-		String info = main.db.setShoppingCartInfo(name, cost, amount);
-		main.info += info;
-		main.db.updateCart(main.db.getConnection(), user, main.info);
+         	cartUpdatePane.setText("Not enough items in stock.");
+        }
+	
 	}
 
 }

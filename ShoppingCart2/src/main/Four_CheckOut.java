@@ -28,7 +28,9 @@ public class Four_CheckOut extends JPanel {
 		itemsInUserCart =  main.db.decodeInfo(main.db.grabCartInfo(main.db.getConnection(), main.currentUser));
 		for(int i = 0; i < itemsInUserCart.size()/3; i++) {
 			output += itemsInUserCart.get(i*3 +2) + "x " + itemsInUserCart.get(i*3) + "\n";
+			main.db.update(main.db.getConnection(), itemsInUserCart.get(i*3), main.db.getItemAmount(main.db.getConnection(), itemsInUserCart.get(i*3)) - Integer.parseInt(itemsInUserCart.get(i*3 + 2)));
 		}
+		main.db.clearCart(main.db.getConnection(), main.currentUser);
 		
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -104,5 +106,5 @@ public class Four_CheckOut extends JPanel {
 	
 	
 	
-
+	
 }

@@ -252,7 +252,7 @@ public class DatabaseConnection {
             statement.executeUpdate(sqlCommand);
             connection.commit();
             statement.close();
-            System.out.println("Data Updated...");
+            System.out.println("Set " + name + " to " + amount);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -263,6 +263,30 @@ public class DatabaseConnection {
             System.exit(0);
         }
     }
+	public int getItemAmount(Connection connection, String name) {
+		int itemNumber = 0;
+		Statement statement = null;   
+	        try {
+	        statement = connection.createStatement();
+	        String sqlCommand =
+	        	    "SELECT amount FROM items WHERE name = '"+name+"';";
+	        ResultSet resultSet = statement.executeQuery(sqlCommand);    
+
+	        while (resultSet.next()) {	        	
+	        	itemNumber = Integer.parseInt(resultSet.getString("amount"));
+	        	
+	           
+	        } 
+	        statement.close();
+	        System.out.println("Called getItemAmount method");
+	        }catch (Exception e) {
+	            System.err.println(e.getClass());
+	        }
+	        
+	        return itemNumber;
+	        
+	}
+  
 
     public void delete(Connection connection, String name)
     {
@@ -275,7 +299,7 @@ public class DatabaseConnection {
             statement.executeUpdate(sqlCommand);
             connection.commit();
             statement.close();
-            System.out.println("Data Deleted...");
+            System.out.println("Deleted " + name + " from inventory");
             
             
         } catch (SQLException e) {
@@ -298,7 +322,7 @@ public class DatabaseConnection {
                     "postgres",
                     "logan2002"
             );
-            System.out.println("Opened Database Successfully!");
+            //System.out.println("Opened Database Successfully!");
         }catch(ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -332,7 +356,7 @@ public class DatabaseConnection {
         //statement.executeUpdate(sqlCommand); //ERROR CALLING CATCH ~ REDUNDANT
         //connection.commit(); //ERROR CALLING CATCH
         statement.close();
-        System.out.println("Username fetched..");
+        System.out.println("Called getUsernames method");
         }catch (Exception e) {
             System.err.println(e.getClass());
         }
@@ -396,7 +420,7 @@ public class DatabaseConnection {
         //statement.executeUpdate(sqlCommand); REDUNDANT
         //connection.commit();
         statement.close();
-        System.out.println("Item name fetched..");
+        System.out.println("Called getItemnames method");
         }catch (Exception e) {
             System.err.println(e.getClass());
         }
@@ -423,7 +447,7 @@ public class DatabaseConnection {
 	           
 	        } 
 	        statement.close();
-	        System.out.println("Item name fetched..");
+	        System.out.println("Called itemNamesArray method");
 	        }catch (Exception e) {
 	            System.err.println(e.getClass());
 	        }
@@ -447,7 +471,7 @@ public class DatabaseConnection {
 	           
 	        } 
 	        statement.close();
-	        System.out.println("Item name fetched..");
+	        System.out.println("Called numRowsInTable method");
 	        }catch (Exception e) {
 	            System.err.println(e.getClass());
 	        }
@@ -576,7 +600,7 @@ public class DatabaseConnection {
             statement.executeUpdate(sqlCommand);
             connection.commit();
             statement.close();
-            System.out.println("Data Updated...");
+            System.out.println("Added new user " + user + " to shopping cart database");
 
 
             select(connection, "cart");
@@ -731,5 +755,28 @@ public class DatabaseConnection {
            System.err.println(e.getClass());
        }
        return bool;
+   }
+   
+   public void clearCart(Connection connection, String name)
+   {
+       Statement statement = null;
+       try{
+           connection.setAutoCommit(false);
+           statement = connection.createStatement();
+           String sqlCommand =
+                   "UPDATE cart SET info = '' WHERE username = '"+name+"';";
+           statement.executeUpdate(sqlCommand);
+           connection.commit();
+           statement.close();
+           System.out.println("Cart for user:" + name + " has been cleared.");
+
+       } catch (SQLException e) {
+           e.printStackTrace();
+           System.exit(0);
+       } catch (Exception e) {
+           e.printStackTrace();
+           System.err.println("Catch all Exception occurred: "+e.getClass().getName()+": "+e.getMessage());
+           System.exit(0);
+       }
    }
 }
