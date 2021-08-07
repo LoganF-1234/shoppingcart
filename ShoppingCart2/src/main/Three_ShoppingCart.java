@@ -28,27 +28,29 @@ public class Three_ShoppingCart extends JPanel {
 		for(int i = 0; i < itemsInUserCart.size()/3; i++) {
 			output += itemsInUserCart.get(i*3 +2) + "x " + itemsInUserCart.get(i*3) + "\n";
 		}
-		setBackground(Color.WHITE);
+		setBackground(main.myYellow);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(null);
 		
 		JTextPane txtpnShoppingCart = new JTextPane();
-		txtpnShoppingCart.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		txtpnShoppingCart.setFont(new Font("Monospaced", Font.BOLD, 36));
+		txtpnShoppingCart.setBackground(main.myYellow);
 		txtpnShoppingCart.setEditable(false);
 		txtpnShoppingCart.setText("Shopping Cart:");
-		txtpnShoppingCart.setBounds(10, 11, 167, 36);
+		txtpnShoppingCart.setBounds(250, 25, 400, 50);
 		add(txtpnShoppingCart);
 		
 		JTextPane txtpnCartDesc = new JTextPane();
 		txtpnCartDesc.setEditable(false);
-		txtpnCartDesc.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		txtpnCartDesc.setFont(new Font("Monospaced", Font.BOLD, 17));
+		txtpnCartDesc.setBackground(main.myYellow);
 		txtpnCartDesc.setText(output);
-		txtpnCartDesc.setBounds(20, 58, 390, 350);
+		txtpnCartDesc.setBounds(75, 85, 390, 350);
 		add(txtpnCartDesc);
 		
 		JButton btnCheckOut = new JButton("Back");
-		btnCheckOut.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnCheckOut.setBounds(300, 450, 110, 23);
+		btnCheckOut.setFont(new Font("Monospaced", Font.BOLD, 16));
+		btnCheckOut.setBounds(340, 450, 110, 23);
 		btnCheckOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnCheckOut) {

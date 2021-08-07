@@ -19,36 +19,42 @@ public class Nine_ManagerRemove extends JPanel {
 
 	private void initialize() {
 
-		setBackground(Color.WHITE);
+		setBackground(main.myYellow);
 		setBounds(100, 100, 852, 634);
 		setLayout(null);
 		
 		removeItem = new JButton("Remove This Item From Inventory");
-		removeItem.setBounds(458, 450, 350, 40);
+		removeItem.setBounds(458, 450, 345, 40);
 		removeItem.addActionListener(new ButtonListener());
 		add(removeItem);
 		
 		itemRemoved = new JTextPane();
-		itemRemoved.setFont(new Font("Tacoma", Font.ITALIC, 13));
+		itemRemoved.setFont(new Font("Monospaced", Font.ITALIC, 13));
+		itemRemoved.setBackground(main.myYellow);
 		itemRemoved.setEditable(false);
 		itemRemoved.setBounds(458, 500, 350, 20);
 		add(itemRemoved);
 
 		JTextPane txtpnShoppingPage = new JTextPane();
 		txtpnShoppingPage.setEditable(false);
-		txtpnShoppingPage.setFont(new Font("Tahoma", Font.PLAIN, 33));
-		txtpnShoppingPage.setBounds(10, 11, 500, 52);
+		txtpnShoppingPage.setFont(new Font("Monospaced", Font.BOLD, 36));
+		txtpnShoppingPage.setBackground(main.myYellow);
+		txtpnShoppingPage.setBounds(10, 11, 650, 52);
 		txtpnShoppingPage.setText("Remove Item From Inventory");
 		add(txtpnShoppingPage);
 
 		textPane = new JTextPane();
 		textPane.setEditable(false);
+		textPane.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		textPane.setBackground(main.myYellow);
 		textPane.setText("");
 		textPane.setBounds(459, 260, 46, 20);
 		add(textPane);
 
 		JTextPane txtpnPerDozen = new JTextPane();
 		txtpnPerDozen.setEditable(false);
+		txtpnPerDozen.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		txtpnPerDozen.setBackground(main.myYellow);
 		txtpnPerDozen.setText("Per Dozen");
 		txtpnPerDozen.setVisible(false);
 		txtpnPerDozen.setBounds(524, 349, 64, 20);
@@ -88,17 +94,23 @@ public class Nine_ManagerRemove extends JPanel {
 
 		txtfieldABeautifulEgg = new JTextPane();
 		txtfieldABeautifulEgg.setEditable(false);
+		txtfieldABeautifulEgg.setFont(new Font("Monospaced", Font.BOLD, 20));
+		txtfieldABeautifulEgg.setBackground(main.myYellow);
 		txtfieldABeautifulEgg.setText("Please choose an item to remove...");
 		txtfieldABeautifulEgg.setBounds(459, 140, 300, 55);
 		add(txtfieldABeautifulEgg);
 
 		itemDescPane = new JTextPane();
 		itemDescPane.setEditable(false);
+		itemDescPane.setFont(new Font("Monospaced", Font.PLAIN, 15));
+		itemDescPane.setBackground(main.myYellow);
 		itemDescPane.setBounds(459, 195, 370, 23);
 		add(itemDescPane);
 
 		txtpnInstockLeft = new JTextPane();
 		txtpnInstockLeft.setEditable(false);
+		txtpnInstockLeft.setFont(new Font("Monospaced", Font.PLAIN, 14));
+		txtpnInstockLeft.setBackground(main.myYellow);
 		txtpnInstockLeft.setText("");
 		txtpnInstockLeft.setBounds(459, 230, 205, 23);
 		add(txtpnInstockLeft);
@@ -135,7 +147,7 @@ public class Nine_ManagerRemove extends JPanel {
 		add(separator_7);
 
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnBack.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		btnBack.setBounds(675, 66, 151, 34);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,8 +162,11 @@ public class Nine_ManagerRemove extends JPanel {
 		arrayItemNames = main.db.itemNamesArray(main.db.getConnection());
 		comboItems = new JComboBox(arrayItemNames);
 		comboItems.setSelectedIndex(0);
+		comboItems.setBackground(Color.LIGHT_GRAY);
 		comboItems.setBounds(39, 147, 372, 30);
 		comboItems.setMaximumRowCount(15);
+		comboItems.setFont(new Font("Monospaced", Font.BOLD, 14));
+		comboItems.setBorder(BorderFactory.createLineBorder(Color.black));
 		comboItems.addActionListener(new ComboListener());
 		add(comboItems);
 
@@ -188,7 +203,7 @@ public class Nine_ManagerRemove extends JPanel {
 			}
 			if (itemName == arrayItemNames[itemPosition]) {
 				stuff = main.db.itemsDatabaseArray(main.db.getConnection());
-				txtfieldABeautifulEgg.setFont(new Font("Tahoma", Font.BOLD, 35));
+				txtfieldABeautifulEgg.setFont(new Font("Monospaced", Font.BOLD, 35));
 				txtfieldABeautifulEgg.setText(stuff[itemDatabasePosition]);
 				itemDescPane.setText(stuff[itemDatabasePosition + 3]);
 				name = stuff[itemDatabasePosition];

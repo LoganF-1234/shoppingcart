@@ -5,12 +5,14 @@ import javax.swing.JPasswordField;
 
 import java.awt.Color;
 import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 import DB.DatabaseConnection;
@@ -25,53 +27,61 @@ public class Zero_Login extends JPanel {
 	 * Create the panel.
 	 */
 	public Zero_Login() {
-		setBackground(Color.WHITE);
+		setBackground(main.myYellow);
+		setBorder(new EmptyBorder(5, 5, 5, 5));
+		setBounds(100, 100, 876, 634);
 		setLayout(null);
 		
 		JTextPane txtpnShoppingCartApp = new JTextPane();
-		txtpnShoppingCartApp.setFont(new Font("Tahoma", Font.PLAIN, 36));
+		txtpnShoppingCartApp.setBackground(main.myYellow);
+		txtpnShoppingCartApp.setFont(new Font("Monospaced", Font.BOLD, 36));
 		txtpnShoppingCartApp.setText("Shopping Cart App");
 		txtpnShoppingCartApp.setEditable(false);
-		txtpnShoppingCartApp.setBounds(174, 49, 325, 50);
+		txtpnShoppingCartApp.setBounds(260, 49, 325, 50);
 		add(txtpnShoppingCartApp);
 		
 		JTextPane txtpnLogin = new JTextPane();
+		txtpnLogin.setBackground(main.myYellow);
 		txtpnLogin.setText("Login");
-		txtpnLogin.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		txtpnLogin.setFont(new Font("Monospaced", Font.PLAIN, 26));
 		txtpnLogin.setEditable(false);
-		txtpnLogin.setBounds(286, 110, 111, 50);
+		txtpnLogin.setBounds(370, 110, 111, 50);
 		add(txtpnLogin);
 		
 		textFieldUsername = new JTextField();
 		textFieldUsername.setBackground(Color.LIGHT_GRAY);
-		textFieldUsername.setBounds(311, 231, 127, 29);
+		textFieldUsername.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		textFieldUsername.setBounds(420, 231, 127, 29);
 		add(textFieldUsername);
 		textFieldUsername.setColumns(10);
 		
 		textFieldPassword = new JPasswordField();
 		textFieldPassword.setBackground(Color.LIGHT_GRAY);
-		textFieldPassword.setBounds(311, 271, 127, 29);
+		textFieldPassword.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		textFieldPassword.setBounds(420, 271, 127, 29);
 		add(textFieldPassword);
 		textFieldPassword.setColumns(10);
 
 		
 		JTextPane txtpnUsername = new JTextPane();
 		txtpnUsername.setText("Username:");
-		txtpnUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtpnUsername.setBackground(main.myYellow);
+		txtpnUsername.setFont(new Font("Monospaced", Font.PLAIN, 20));
 		txtpnUsername.setEditable(false);
-		txtpnUsername.setBounds(184, 231, 111, 29);
+		txtpnUsername.setBounds(293, 231, 111, 29);
 		add(txtpnUsername);
 		
 		JTextPane txtpnPassword = new JTextPane();
 		txtpnPassword.setText("Password:");
-		txtpnPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtpnPassword.setBackground(main.myYellow);
+		txtpnPassword.setFont(new Font("Monospaced", Font.PLAIN, 20));
 		txtpnPassword.setEditable(false);
-		txtpnPassword.setBounds(184, 271, 111, 29);
+		txtpnPassword.setBounds(293, 271, 111, 29);
 		add(txtpnPassword);
 		
 		JButton signInButton = new JButton("Sign In");
-		signInButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		signInButton.setBounds(259, 311, 98, 29);
+		signInButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		signInButton.setBounds(352, 359, 125, 32);
 		signInButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==signInButton) {
@@ -120,14 +130,16 @@ public class Zero_Login extends JPanel {
 		add(signInButton);
 		
 		errorField = new JTextField();
-		errorField.setBackground(Color.WHITE);
-		errorField.setBounds(160, 359, 300, 29);
+		errorField.setBackground(main.myYellow);
+		errorField.setBorder(BorderFactory.createLineBorder(new Color(228, 216, 116)));
+		errorField.setFont(new Font(errorField.getFont().getName(),Font.ITALIC,errorField.getFont().getSize()));
+		errorField.setBounds(293, 311, 300, 29);
 		add(errorField);
-		errorField.setColumns(10);
+		//errorField.setColumns(10);
 		
 		createAccountButton = new JButton("Create Account");
-		createAccountButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		createAccountButton.setBounds(235, 400, 150, 29);
+		createAccountButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		createAccountButton.setBounds(315, 425, 200, 32);
 		createAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==createAccountButton) {

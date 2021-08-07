@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
@@ -47,6 +48,7 @@ public class Two_ShoppingPage extends JPanel{
 	static int itemDatabasePosition;
 	
 	int databaseAmount, newAmount;
+	
 		
 	public Two_ShoppingPage() {
 		initialize();
@@ -55,14 +57,15 @@ public class Two_ShoppingPage extends JPanel{
 
 	private void initialize() {
 		
-		setBackground(Color.WHITE);
-		setBounds(100, 100, 852, 634);
+		setBackground(main.myYellow);
+		setBounds(100, 100, 876, 634);
 		setLayout(null);
 		
 		JTextPane txtpnShoppingPage = new JTextPane();
 		txtpnShoppingPage.setEditable(false);
-		txtpnShoppingPage.setFont(new Font("Tahoma", Font.PLAIN, 33));
-		txtpnShoppingPage.setBounds(10, 11, 229, 52);
+		txtpnShoppingPage.setBackground(main.myYellow);
+		txtpnShoppingPage.setFont(new Font("Monospaced", Font.BOLD, 40));
+		txtpnShoppingPage.setBounds(20, 25, 400, 52);
 		txtpnShoppingPage.setText("Shopping Page");
 		add(txtpnShoppingPage);
 
@@ -70,6 +73,7 @@ public class Two_ShoppingPage extends JPanel{
 		
 		JButton checkOutButton = new JButton("Check Out");
 		checkOutButton.setBounds(593, 478, 100, 23);
+		checkOutButton.setFont(new Font("Monospaced", Font.BOLD, 12));
 		checkOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==checkOutButton) {
@@ -83,6 +87,7 @@ public class Two_ShoppingPage extends JPanel{
 	
 		JButton showCartButton = new JButton("Show Cart");
 		showCartButton.setBounds(700, 478, 100, 23);
+		showCartButton.setFont(new Font("Monospaced", Font.BOLD, 12));
 		showCartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==showCartButton) {
@@ -95,6 +100,7 @@ public class Two_ShoppingPage extends JPanel{
 		
 		JButton btnNewButton_2 = new JButton("Add"); 
 		btnNewButton_2.setBounds(524, 478, 59, 23);
+		btnNewButton_2.setFont(new Font("Monospaced", Font.BOLD, 12));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnNewButton_2) {
@@ -106,13 +112,16 @@ public class Two_ShoppingPage extends JPanel{
 		
 		JTextPane amountPane = new JTextPane();
 		amountPane.setEditable(false);
+		amountPane.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		amountPane.setBackground(main.myYellow);
 		amountPane.setText("Enter Amount: ");
-		amountPane.setBounds(442, 450, 100, 22);
+		amountPane.setBounds(442, 450, 140, 22);
 		add(amountPane);
 		
 		amountField = new JTextField();
 		amountField.setEditable(true);
 		amountField.setBackground(Color.LIGHT_GRAY);
+		amountField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		//amountField.setLineWrap(true);
 		amountField.setText("1");
 		amountField.setBounds(459, 479, 46, 22);
@@ -120,12 +129,16 @@ public class Two_ShoppingPage extends JPanel{
 		
 		textPane = new JTextPane();
 		textPane.setEditable(false);
+		textPane.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		textPane.setBackground(main.myYellow);
 		textPane.setText("");
-		textPane.setBounds(459, 260, 46, 20);
+		textPane.setBounds(459, 260, 64, 20);
 		add(textPane);
 		
 		JTextPane txtpnPerDozen = new JTextPane();
 		txtpnPerDozen.setEditable(false);
+		txtpnPerDozen.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		txtpnPerDozen.setBackground(main.myYellow);
 		txtpnPerDozen.setText("Per Dozen");
 		txtpnPerDozen.setVisible(false);
 		txtpnPerDozen.setBounds(524, 349, 64, 20);
@@ -166,17 +179,23 @@ public class Two_ShoppingPage extends JPanel{
 		
 		txtfieldABeautifulEgg = new JTextPane();
 		txtfieldABeautifulEgg.setEditable(false);
+		txtfieldABeautifulEgg.setFont(new Font("Monospaced", Font.BOLD, 20));
+		txtfieldABeautifulEgg.setBackground(main.myYellow);
 		txtfieldABeautifulEgg.setText("Please choose an item from the dropdown...");
-		txtfieldABeautifulEgg.setBounds(459, 140, 370, 55);
+		txtfieldABeautifulEgg.setBounds(459, 140, 350, 55);
 		add(txtfieldABeautifulEgg);
 		
 		itemDescPane = new JTextPane();
 		itemDescPane.setEditable(false);
-		itemDescPane.setBounds(459, 195, 370, 23);
+		itemDescPane.setFont(new Font("Monospaced", Font.PLAIN, 15));
+		itemDescPane.setBackground(main.myYellow);
+		itemDescPane.setBounds(459, 195, 350, 23);
 		add(itemDescPane);
 		
 		txtpnInstockLeft = new JTextPane();
 		txtpnInstockLeft.setEditable(false);
+		txtpnInstockLeft.setFont(new Font("Monospaced", Font.PLAIN, 14));
+		txtpnInstockLeft.setBackground(main.myYellow);
 		txtpnInstockLeft.setText("");
 		txtpnInstockLeft.setBounds(459, 230, 205, 23);
 		add(txtpnInstockLeft);
@@ -189,7 +208,9 @@ public class Two_ShoppingPage extends JPanel{
 		add(txtpnOutOfStock);
 		
 		cartUpdatePane = new JTextPane();
-		cartUpdatePane.setFont(new Font("Tacoma", Font.ITALIC, 13));
+		cartUpdatePane.setEditable(false);
+		cartUpdatePane.setFont(new Font("Monospaced", Font.ITALIC, 13));
+		cartUpdatePane.setBackground(main.myYellow);
 		cartUpdatePane.setText("");
 		cartUpdatePane.setBounds(459, 505, 350, 25);
 		add(cartUpdatePane);
@@ -220,7 +241,7 @@ public class Two_ShoppingPage extends JPanel{
 		add(separator_7);
 		
 		JButton btnLogOut = new JButton("Logout");
-		btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnLogOut.setFont(new Font("Monospaced", Font.BOLD, 20));
 		btnLogOut.setBounds(675, 66, 151, 34);
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -240,8 +261,11 @@ public class Two_ShoppingPage extends JPanel{
 		//System.out.println(arrayItemNames);
 		comboItems = new JComboBox(arrayItemNames);
 		comboItems.setSelectedIndex(0);
+		comboItems.setBackground(Color.LIGHT_GRAY);
 		comboItems.setBounds(39, 147, 372, 30);
 		comboItems.setMaximumRowCount(15);
+		comboItems.setFont(new Font("Monospaced", Font.BOLD, 14));
+		comboItems.setBorder(BorderFactory.createLineBorder(Color.black));
 		comboItems.addActionListener(new ComboListener());
 		add(comboItems);
 		//System.out.println(main.db.getItemnames(main.db.getConnection()));
@@ -327,7 +351,7 @@ public class Two_ShoppingPage extends JPanel{
 			}
 			if(itemName == arrayItemNames[itemPosition]) { //use the itemDatabasePosition from above to add items at indexes near it in the array into the corresponding text panes. See line 277.
             	stuff = main.db.itemsDatabaseArray(main.db.getConnection());
-            	txtfieldABeautifulEgg.setFont(new Font("Tahoma", Font.BOLD, 35));
+            	txtfieldABeautifulEgg.setFont(new Font("Monospaced", Font.BOLD, 33));
                 txtfieldABeautifulEgg.setText(stuff[itemDatabasePosition]);
             	itemDescPane.setText(stuff[itemDatabasePosition + 3]);
                 name = stuff[itemDatabasePosition];

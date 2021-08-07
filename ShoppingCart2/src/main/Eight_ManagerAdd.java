@@ -13,82 +13,98 @@ public class Eight_ManagerAdd extends JPanel {
 	
 	public Eight_ManagerAdd() {
 		
-		setBackground(Color.WHITE);
+		setBackground(main.myYellow);
 		setBounds(100, 100, 852, 634);
 		setLayout(null);
 		
 		titlePane = new JTextPane();
-		titlePane.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		titlePane.setFont(new Font("Monospaced", Font.BOLD, 36));
+		titlePane.setBackground(main.myYellow);
 		titlePane.setEditable(false);
 		titlePane.setText("Add Item to Inventory: ");
-		titlePane.setBounds(10, 11, 600, 40);
+		titlePane.setBounds(180, 25, 600, 52);
 		add(titlePane);
 		
 		namePane = new JTextPane();
-		namePane.setBounds(100, 150, 200, 30);
+		namePane.setBounds(200, 150, 150, 30);
 		namePane.setEditable(false);
-		namePane.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		namePane.setText("Name of item: ");
+		namePane.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		namePane.setBackground(main.myYellow);
+		namePane.setText("Name: ");
 		add(namePane);
 		
 		typePane = new JTextPane();
-		typePane.setBounds(100, 200, 200, 30);
+		typePane.setBounds(200, 200, 150, 30);
 		typePane.setEditable(false);
-		typePane.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		typePane.setText("Type of Item: ");
+		typePane.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		typePane.setBackground(main.myYellow);
+		typePane.setText("Type: ");
 		add(typePane);
 		
 		pricePane = new JTextPane();
-		pricePane.setBounds(100, 250, 200, 30);
+		pricePane.setBounds(200, 250, 150, 30);
 		pricePane.setEditable(false);
-		pricePane.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		pricePane.setText("Price of item: ");
+		pricePane.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		pricePane.setBackground(main.myYellow);
+		pricePane.setText("Price: ");
 		add(pricePane);
 		
 		amountPane = new JTextPane();
-		amountPane.setBounds(100, 300, 200, 30);
+		amountPane.setBounds(200, 300, 150, 30);
 		amountPane.setEditable(false);
-		amountPane.setText("Amount of item: ");
-		amountPane.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		amountPane.setText("Amount: ");
+		amountPane.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		amountPane.setBackground(main.myYellow);
 		add(amountPane);
 		
 		descPane = new JTextPane();
-		descPane.setBounds(100, 350, 200, 30);
+		descPane.setBounds(200, 350, 150, 30);
 		descPane.setEditable(false);
-		descPane.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		descPane.setText("Description of Item: ");
+		descPane.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		descPane.setBackground(main.myYellow);
+		descPane.setText("Description: ");
 		add(descPane);
 		
 		nameField = new JTextField();
-		nameField.setBounds(300, 150, 250, 30);
-		nameField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		nameField.setBounds(390, 150, 250, 30);
+		nameField.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		nameField.setBackground(Color.LIGHT_GRAY);
+		nameField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(nameField);
 		
 		typeField = new JTextField();
-		typeField.setBounds(300, 200, 250, 30);
-		typeField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		typeField.setBounds(390, 200, 250, 30);
+		typeField.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		typeField.setBackground(Color.LIGHT_GRAY);
+		typeField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(typeField);
 		
 		priceField = new JTextField();
-		priceField.setBounds(300, 250, 250, 30);
+		priceField.setBounds(390, 250, 250, 30);
 		priceField.setText("");
-		priceField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		priceField.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		priceField.setBackground(Color.LIGHT_GRAY);
+		priceField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(priceField);
 		
 		amountField = new JTextField();
-		amountField.setBounds(300, 300, 250, 30);
+		amountField.setBounds(390, 300, 250, 30);
 		amountField.setText("");
-		amountField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		amountField.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		amountField.setBackground(Color.LIGHT_GRAY);
+		amountField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(amountField);
 		
 		descField = new JTextField();
-		descField.setBounds(300, 350, 250, 30);
-		descField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		descField.setBounds(390, 350, 250, 30);
+		descField.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		descField.setBackground(Color.LIGHT_GRAY);
+		descField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(descField);
 		
 		backButton = new JButton("Back");
-		backButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		backButton.setBounds(650, 66, 151, 34);		
+		backButton.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		backButton.setBounds(650, 500, 151, 34);		
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == backButton) {
@@ -100,8 +116,8 @@ public class Eight_ManagerAdd extends JPanel {
 		add(backButton);
 		
 		addButton = new JButton("Add Item");
-		addButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		addButton.setBounds(200, 425, 151, 34);	
+		addButton.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		addButton.setBounds(350, 425, 151, 34);	
 		addButton.addActionListener(new ButtonListener());
 		add(addButton);
 		

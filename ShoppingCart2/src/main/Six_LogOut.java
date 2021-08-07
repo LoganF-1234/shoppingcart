@@ -20,33 +20,36 @@ import DB.DatabaseConnection;
 public class Six_LogOut extends JPanel{
 
 	public Six_LogOut() {
-		setBackground(Color.WHITE);
+		setBackground(main.myYellow);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(null);
 		
 		JTextPane txtpnLoggedOut = new JTextPane();
 		txtpnLoggedOut.setEditable(false);
-		txtpnLoggedOut.setFont(new Font("Sitka Text", Font.BOLD, 30));
+		txtpnLoggedOut.setFont(new Font("Monospaced", Font.BOLD, 36));
+		txtpnLoggedOut.setBackground(main.myYellow);
 		txtpnLoggedOut.setText("Logged Out");
-		txtpnLoggedOut.setBounds(186, 151, 192, 49);
+		txtpnLoggedOut.setBounds(305, 135, 400, 50);
 		add(txtpnLoggedOut);
 		
 		JTextPane txtpnThankYouFor = new JTextPane();
 		txtpnThankYouFor.setText("Thank you for shopping!");
-		txtpnThankYouFor.setFont(new Font("Sitka Text", Font.PLAIN, 12));
+		txtpnThankYouFor.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		txtpnThankYouFor.setBackground(main.myYellow);
 		txtpnThankYouFor.setEditable(false);
-		txtpnThankYouFor.setBounds(206, 198, 192, 22);
+		txtpnThankYouFor.setBounds(328, 198, 192, 22);
 		add(txtpnThankYouFor);
 		
 		JTextPane txtpnyourCartWill = new JTextPane();
 		txtpnyourCartWill.setText("(Your cart will be saved, don't worry)");
-		txtpnyourCartWill.setFont(new Font("Sitka Text", Font.PLAIN, 12));
+		txtpnyourCartWill.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		txtpnyourCartWill.setBackground(main.myYellow);
 		txtpnyourCartWill.setEditable(false);
-		txtpnyourCartWill.setBounds(172, 219, 226, 22);
+		txtpnyourCartWill.setBounds(283, 219, 310, 22);
 		add(txtpnyourCartWill);
 		
 		JButton returnToLoginButton = new JButton("Return to Login");
-		returnToLoginButton.setBounds(220, 271, 130, 22);
+		returnToLoginButton.setBounds(332, 271, 150, 28);
 		returnToLoginButton.addActionListener(new ActionListener() { //I need to actually close the connection to the current logged in account, dont know how
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==returnToLoginButton) {

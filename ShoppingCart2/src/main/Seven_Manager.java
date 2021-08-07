@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
@@ -54,14 +55,15 @@ public class Seven_Manager extends JPanel{
 
 	private void initialize() {
 		
-		setBackground(Color.WHITE);
+		setBackground(main.myYellow);
 		setBounds(100, 100, 852, 634);
 		setLayout(null);
 		
 		JTextPane txtpnShoppingPage = new JTextPane();
 		txtpnShoppingPage.setEditable(false);
-		txtpnShoppingPage.setFont(new Font("Tahoma", Font.PLAIN, 33));
-		txtpnShoppingPage.setBounds(10, 11, 500, 52);
+		txtpnShoppingPage.setFont(new Font("Monospaced", Font.BOLD, 36));
+		txtpnShoppingPage.setBackground(main.myYellow);
+		txtpnShoppingPage.setBounds(10, 11, 700, 52);
 		txtpnShoppingPage.setText("Shopping Page ~ Manager View");
 		add(txtpnShoppingPage);
 		
@@ -104,18 +106,22 @@ public class Seven_Manager extends JPanel{
 		JTextPane amountPane = new JTextPane();
 		amountPane.setEditable(false);
 		amountPane.setText("Enter Amount: ");
+		amountPane.setBackground(main.myYellow);
 		amountPane.setBounds(442, 450, 100, 22);
 		add(amountPane);
 		
 		amountField = new JTextField();
 		amountField.setEditable(true);
 		amountField.setBackground(Color.LIGHT_GRAY);
+		amountField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		amountField.setText("1");
 		amountField.setBounds(459, 479, 46, 22);
 		add(amountField);
 		
 		textPane = new JTextPane();
 		textPane.setEditable(false);
+		textPane.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		textPane.setBackground(main.myYellow);
 		textPane.setText("");
 		textPane.setBounds(459, 260, 46, 20);
 		add(textPane);
@@ -123,6 +129,8 @@ public class Seven_Manager extends JPanel{
 		JTextPane txtpnPerDozen = new JTextPane();
 		txtpnPerDozen.setEditable(false);
 		txtpnPerDozen.setText("Per Dozen");
+		txtpnPerDozen.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		txtpnPerDozen.setBackground(main.myYellow);
 		txtpnPerDozen.setVisible(false);
 		txtpnPerDozen.setBounds(524, 349, 64, 20);
 		add(txtpnPerDozen);
@@ -155,17 +163,23 @@ public class Seven_Manager extends JPanel{
 		
 		txtfieldABeautifulEgg = new JTextPane();
 		txtfieldABeautifulEgg.setEditable(false);
+		txtfieldABeautifulEgg.setFont(new Font("Monospaced", Font.BOLD, 20));
+		txtfieldABeautifulEgg.setBackground(main.myYellow);
 		txtfieldABeautifulEgg.setText("Please choose an item from the dropdown...");
-		txtfieldABeautifulEgg.setBounds(459, 140, 300, 55);
+		txtfieldABeautifulEgg.setBounds(459, 140, 350, 55);
 		add(txtfieldABeautifulEgg);
 		
 		itemDescPane = new JTextPane();
 		itemDescPane.setEditable(false);
-		itemDescPane.setBounds(459, 195, 300, 23);
+		itemDescPane.setFont(new Font("Monospaced", Font.PLAIN, 15));
+		itemDescPane.setBackground(main.myYellow);
+		itemDescPane.setBounds(459, 195, 350, 23);
 		add(itemDescPane);
 		
 		txtpnInstockLeft = new JTextPane();
 		txtpnInstockLeft.setEditable(false);
+		txtpnInstockLeft.setFont(new Font("Monospaced", Font.PLAIN, 14));
+		txtpnInstockLeft.setBackground(main.myYellow);
 		txtpnInstockLeft.setText("");
 		txtpnInstockLeft.setBounds(459, 230, 205, 23);
 		add(txtpnInstockLeft);
@@ -178,7 +192,8 @@ public class Seven_Manager extends JPanel{
 		add(txtpnOutOfStock);
 		
 		cartUpdatePane = new JTextPane();
-		cartUpdatePane.setFont(new Font("Tacoma", Font.ITALIC, 13));
+		cartUpdatePane.setFont(new Font("Monospaced", Font.ITALIC, 13));
+		cartUpdatePane.setBackground(main.myYellow);
 		cartUpdatePane.setText("");
 		cartUpdatePane.setBounds(459, 505, 350, 25);
 		add(cartUpdatePane);
@@ -209,7 +224,7 @@ public class Seven_Manager extends JPanel{
 		add(separator_7);
 		
 		JButton btnLogOut = new JButton("Logout");
-		btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnLogOut.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		btnLogOut.setBounds(675, 66, 151, 34);
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -226,8 +241,11 @@ public class Seven_Manager extends JPanel{
 		arrayItemNames = main.db.itemNamesArray(main.db.getConnection());
 		comboItems = new JComboBox(arrayItemNames);
 		comboItems.setSelectedIndex(0);
+		comboItems.setBackground(Color.LIGHT_GRAY);
 		comboItems.setBounds(39, 147, 372, 30);
 		comboItems.setMaximumRowCount(15);
+		comboItems.setFont(new Font("Monospaced", Font.BOLD, 14));
+		comboItems.setBorder(BorderFactory.createLineBorder(Color.black));
 		comboItems.addActionListener(new ComboListener());
 		add(comboItems);
 
@@ -285,7 +303,7 @@ public class Seven_Manager extends JPanel{
 			}
 			if(itemName == arrayItemNames[itemPosition]) { 
             	stuff = main.db.itemsDatabaseArray(main.db.getConnection());     
-            	txtfieldABeautifulEgg.setFont(new Font("Tahoma", Font.BOLD, 35));
+            	txtfieldABeautifulEgg.setFont(new Font("Monospaced", Font.BOLD, 35));
                 txtfieldABeautifulEgg.setText(stuff[itemDatabasePosition]);
             	itemDescPane.setText(stuff[itemDatabasePosition + 3]);
                 name = stuff[itemDatabasePosition];
