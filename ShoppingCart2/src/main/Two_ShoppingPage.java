@@ -30,48 +30,76 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 public class Two_ShoppingPage extends JPanel{
-	private JButton button1, button2, button3,button4, button5, button6,
-					button7 ,button8, button9, button10, 
-					button11, button12, buttonLogOut;
-	
-	private JTextPane txtfieldABeautifulEgg, textPane, txtpnPerDozen, 
-					  txtpnInstockLeft, itemDescPane, cartUpdatePane;
-	
+	private JSeparator separator, separator_1, separator_2, separator_3, 
+	   separator_4, separator_5, separator_6, separator_7;
+	private JTextPane txtfieldABeautifulEgg, textPane, txtpnShoppingPage, 
+		txtpnInstockLeft, itemDescPane, cartUpdatePane, amountPane;
 	private JTextField txtpnOutOfStock, amountField;
-	
+	private JButton checkOutButton, showCartButton, btnNewButton_2, btnLogOut;
 	String name, amount, cost, user;
-	
 	String[] arrayItemNames, stuff;
-	
 	private JComboBox comboItems;
-	
 	static int itemDatabasePosition;
-	
 	int databaseAmount, newAmount;
-	
 		
 	public Two_ShoppingPage() {
 		initialize();
 	}
 	
-
 	private void initialize() {
 		
 		setBackground(main.myYellow);
 		setBounds(100, 100, 876, 634);
 		setLayout(null);
 		
-		JTextPane txtpnShoppingPage = new JTextPane();
-		txtpnShoppingPage.setEditable(false);
-		txtpnShoppingPage.setBackground(main.myYellow);
-		txtpnShoppingPage.setFont(new Font("Monospaced", Font.BOLD, 40));
-		txtpnShoppingPage.setBounds(20, 25, 400, 52);
-		txtpnShoppingPage.setText("Shopping Page");
-		add(txtpnShoppingPage);
-
-
+		newSeparator(separator, 439, 134, 387, 2, "");
+		newSeparator(separator_1, 439, 134, 2, 406, "vertical");
+		newSeparator(separator_2, 439, 538, 387, 2, "");
+		newSeparator(separator_3, 825, 134, 2, 406, "vertical");
+		newSeparator(separator_4, 29, 134, 2, 406, "vertical");
+		newSeparator(separator_5, 29, 538, 393, 2, "");
+		newSeparator(separator_6, 29, 134, 393, 2, "");
+		newSeparator(separator_7, 421, 134, 2, 406, "vertical");
 		
-		JButton checkOutButton = new JButton("Check Out");
+		txtpnShoppingPage = new JTextPane();
+		textPane = new JTextPane();
+		txtfieldABeautifulEgg = new JTextPane();
+		itemDescPane = new JTextPane();
+		txtpnInstockLeft = new JTextPane();
+		cartUpdatePane = new JTextPane();
+		amountPane = new JTextPane();
+		
+		newTextPane(txtpnShoppingPage, 20, 25, 650, 52, "Shopping Page", 36, "bold"); 
+		newTextPane(textPane, 459, 260, 64, 20, "", 13, "");
+		newTextPane(txtfieldABeautifulEgg, 459, 140, 350, 55, "Please choose an item from the dropdown...", 20, "bold");
+		newTextPane(itemDescPane, 459, 195, 350, 23, "", 15, "");
+		newTextPane(txtpnInstockLeft, 459, 230, 205, 23, "", 14, "");
+		newTextPane(cartUpdatePane, 459, 505, 350, 25, "", 13, "italic");
+		newTextPane(amountPane, 442, 450, 140, 22, "Enter Amount: ", 12, "");
+
+		/*TextField textField = new TextField();
+		textField.setText("Search for an item...");
+		textField.setFont(new Font("Dialog", Font.PLAIN, 15));
+		textField.setBounds(29, 106, 797, 22);
+		add(textField);
+		*/
+			
+		txtpnOutOfStock = new JTextField();
+		txtpnOutOfStock.setEditable(false);
+		txtpnOutOfStock.setVisible(false);
+		//btnNewButton_2.txtpnOutOfStock.setText("Out of Stock");
+		txtpnOutOfStock.setBounds(459, 239, 159, 23);
+		add(txtpnOutOfStock);
+		
+		amountField = new JTextField();
+		amountField.setEditable(true);
+		amountField.setBackground(Color.LIGHT_GRAY);
+		amountField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		amountField.setText("1");
+		amountField.setBounds(459, 479, 46, 22);
+		add(amountField);
+
+		checkOutButton = new JButton("Check Out");
 		checkOutButton.setBounds(593, 478, 100, 23);
 		checkOutButton.setFont(new Font("Monospaced", Font.BOLD, 12));
 		checkOutButton.addActionListener(new ActionListener() {
@@ -85,7 +113,7 @@ public class Two_ShoppingPage extends JPanel{
 		});
 		add(checkOutButton);
 	
-		JButton showCartButton = new JButton("Show Cart");
+		showCartButton = new JButton("Show Cart");
 		showCartButton.setBounds(700, 478, 100, 23);
 		showCartButton.setFont(new Font("Monospaced", Font.BOLD, 12));
 		showCartButton.addActionListener(new ActionListener() {
@@ -98,7 +126,7 @@ public class Two_ShoppingPage extends JPanel{
 		});
 		add(showCartButton);
 		
-		JButton btnNewButton_2 = new JButton("Add"); 
+		btnNewButton_2 = new JButton("Add"); 
 		btnNewButton_2.setBounds(524, 478, 59, 23);
 		btnNewButton_2.setFont(new Font("Monospaced", Font.BOLD, 12));
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -110,137 +138,7 @@ public class Two_ShoppingPage extends JPanel{
 		});
 		add(btnNewButton_2);
 		
-		JTextPane amountPane = new JTextPane();
-		amountPane.setEditable(false);
-		amountPane.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		amountPane.setBackground(main.myYellow);
-		amountPane.setText("Enter Amount: ");
-		amountPane.setBounds(442, 450, 140, 22);
-		add(amountPane);
-		
-		amountField = new JTextField();
-		amountField.setEditable(true);
-		amountField.setBackground(Color.LIGHT_GRAY);
-		amountField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		//amountField.setLineWrap(true);
-		amountField.setText("1");
-		amountField.setBounds(459, 479, 46, 22);
-		add(amountField);
-		
-		textPane = new JTextPane();
-		textPane.setEditable(false);
-		textPane.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		textPane.setBackground(main.myYellow);
-		textPane.setText("");
-		textPane.setBounds(459, 260, 64, 20);
-		add(textPane);
-		
-		JTextPane txtpnPerDozen = new JTextPane();
-		txtpnPerDozen.setEditable(false);
-		txtpnPerDozen.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		txtpnPerDozen.setBackground(main.myYellow);
-		txtpnPerDozen.setText("Per Dozen");
-		txtpnPerDozen.setVisible(false);
-		txtpnPerDozen.setBounds(524, 349, 64, 20);
-		add(txtpnPerDozen);
-		
-		JSeparator separator = new JSeparator();
-		separator.setBackground(Color.BLACK);
-		separator.setForeground(Color.BLACK);
-		separator.setBounds(439, 134, 387, 2);
-		add(separator);
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setForeground(Color.BLACK);
-		separator_1.setBackground(Color.BLACK);
-		separator_1.setBounds(439, 134, 2, 406);
-		add(separator_1);
-
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBackground(Color.BLACK);
-		separator_2.setForeground(Color.BLACK);
-		separator_2.setBounds(439, 538, 387, 2);
-		add(separator_2);
-
-		JSeparator separator_3 = new JSeparator();
-		separator_3.setBackground(Color.BLACK);
-		separator_3.setForeground(Color.BLACK);
-		separator_3.setOrientation(SwingConstants.VERTICAL);
-		separator_3.setBounds(825, 134, 2, 406);
-		add(separator_3);
-
-		/*TextField textField = new TextField();
-		textField.setText("Search for an item...");
-		textField.setFont(new Font("Dialog", Font.PLAIN, 15));
-		textField.setBounds(29, 106, 797, 22);
-		add(textField);
-		*/
-		
-		txtfieldABeautifulEgg = new JTextPane();
-		txtfieldABeautifulEgg.setEditable(false);
-		txtfieldABeautifulEgg.setFont(new Font("Monospaced", Font.BOLD, 20));
-		txtfieldABeautifulEgg.setBackground(main.myYellow);
-		txtfieldABeautifulEgg.setText("Please choose an item from the dropdown...");
-		txtfieldABeautifulEgg.setBounds(459, 140, 350, 55);
-		add(txtfieldABeautifulEgg);
-		
-		itemDescPane = new JTextPane();
-		itemDescPane.setEditable(false);
-		itemDescPane.setFont(new Font("Monospaced", Font.PLAIN, 15));
-		itemDescPane.setBackground(main.myYellow);
-		itemDescPane.setBounds(459, 195, 350, 23);
-		add(itemDescPane);
-		
-		txtpnInstockLeft = new JTextPane();
-		txtpnInstockLeft.setEditable(false);
-		txtpnInstockLeft.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		txtpnInstockLeft.setBackground(main.myYellow);
-		txtpnInstockLeft.setText("");
-		txtpnInstockLeft.setBounds(459, 230, 205, 23);
-		add(txtpnInstockLeft);
-		
-		txtpnOutOfStock = new JTextField();
-		txtpnOutOfStock.setEditable(false);
-		txtpnOutOfStock.setVisible(false);
-		//btnNewButton_2.txtpnOutOfStock.setText("Out of Stock");
-		txtpnOutOfStock.setBounds(459, 239, 159, 23);
-		add(txtpnOutOfStock);
-		
-		cartUpdatePane = new JTextPane();
-		cartUpdatePane.setEditable(false);
-		cartUpdatePane.setFont(new Font("Monospaced", Font.ITALIC, 13));
-		cartUpdatePane.setBackground(main.myYellow);
-		cartUpdatePane.setText("");
-		cartUpdatePane.setBounds(459, 505, 350, 25);
-		add(cartUpdatePane);
-		
-		JSeparator separator_4 = new JSeparator();
-		separator_4.setBackground(Color.BLACK);
-		separator_4.setForeground(Color.BLACK);
-		separator_4.setOrientation(SwingConstants.VERTICAL);
-		separator_4.setBounds(29, 134, 2, 406);
-		add(separator_4);
-		
-		JSeparator separator_5 = new JSeparator();
-		separator_5.setForeground(Color.BLACK);
-		separator_5.setBackground(Color.BLACK);
-		separator_5.setBounds(29, 538, 393, 2);
-		add(separator_5);
-		JSeparator separator_6 = new JSeparator();
-		separator_6.setBackground(Color.BLACK);
-		separator_6.setForeground(Color.BLACK);
-		separator_6.setBounds(29, 134, 393, 2);
-		add(separator_6);
-		
-		JSeparator separator_7 = new JSeparator();
-		separator_7.setBackground(Color.BLACK);
-		separator_7.setForeground(Color.BLACK);
-		separator_7.setOrientation(SwingConstants.VERTICAL);
-		separator_7.setBounds(421, 134, 2, 406);
-		add(separator_7);
-		
-		JButton btnLogOut = new JButton("Logout");
+		btnLogOut = new JButton("Logout");
 		btnLogOut.setFont(new Font("Monospaced", Font.BOLD, 20));
 		btnLogOut.setBounds(675, 66, 151, 34);
 		btnLogOut.addActionListener(new ActionListener() {
@@ -254,7 +152,6 @@ public class Two_ShoppingPage extends JPanel{
 			}
 		});
 		add(btnLogOut);
-		
 		
 		//TRYING TO MAKE COMBO BOX ISNTEAD OF BUTTONS
 		arrayItemNames = main.db.itemNamesArray(main.db.getConnection());
@@ -283,7 +180,7 @@ public class Two_ShoppingPage extends JPanel{
 		addButton(button10, "Spaghetti", 448, 56);
 		addButton(button11, "Bat", 478, 62);
 		addButton(button12, "Penne", 510, 68);
-		
+	
 	}
 	
 	public JButton addButton(JButton button, String name, int twobound, int i) {
@@ -314,13 +211,43 @@ public class Two_ShoppingPage extends JPanel{
                 txtpnInstockLeft.setText("In-Stock: " + stuff.get(i+2) +" left");               
             }
         }
-*/	}
+	 END initialize() */	
+		
+	}
+	
+	public void newTextPane(JTextPane pane, int x, int y, int w, int h, String def, int font, String type) {
+		pane.setEditable(false);
+		pane.setBackground(main.myYellow);
+		pane.setText(def);
+		pane.setBounds(x, y, w, h);
+		if(type.equals("bold")) {
+			pane.setFont(new Font("Monospaced", Font.BOLD, font));
+
+		} else if(type.equals("italic")) {
+			pane.setFont(new Font("Monospaced", Font.ITALIC, font));
+
+		} else {
+			pane.setFont(new Font("Monospaced", Font.PLAIN, font));
+
+		}
+		add(pane);
+	}
+	
+	public void newSeparator(JSeparator sep, int x, int y, int w, int h, String orient) {
+		sep = new JSeparator();
+		sep.setBackground(Color.BLACK);
+		sep.setForeground(Color.BLACK);
+		sep.setBounds(x, y, w, h);
+		if(orient.equals("vertical")) {
+			sep.setOrientation(SwingConstants.VERTICAL);
+		} 
+		add(sep);
+	}
 	
 	public class ComboListener implements ActionListener { //This action listener will need to be able to compare the array of just item names to the array of all item information in the for loop
 		int itemPosition =0; 
 		public void actionPerformed(ActionEvent e) {
 		itemDatabasePosition= 0;
-
 		String itemName = (String)comboItems.getSelectedItem();
 		
 		/* itemPosition and itemDatabasePosition will be "linked" so that the int they carry will be the respectiv eindexes of where the same item name is in the respective arrays
@@ -342,11 +269,9 @@ public class Two_ShoppingPage extends JPanel{
 					itemPosition = j; // set temp varaible so j can reset
 					if( itemPosition == 0 ) { //if the first item in the combobox is selected, the index for the database of all the items is set to 2 since that is where the name for the item first occurs
 						itemDatabasePosition = 2; // if the item position 
-
 					} else {
 						itemDatabasePosition = itemPosition*6 +2 ; //
 					}
-					
 				} 
 			}
 			if(itemName == arrayItemNames[itemPosition]) { //use the itemDatabasePosition from above to add items at indexes near it in the array into the corresponding text panes. See line 277.
@@ -355,7 +280,6 @@ public class Two_ShoppingPage extends JPanel{
                 txtfieldABeautifulEgg.setText(stuff[itemDatabasePosition]);
             	itemDescPane.setText(stuff[itemDatabasePosition + 3]);
                 name = stuff[itemDatabasePosition];
-               
                 //amount = stuff[itemDatabasePosition+2];
                 cost = stuff[itemDatabasePosition+1];
                 textPane.setText("$" + stuff[itemDatabasePosition+1]);
@@ -369,8 +293,6 @@ public class Two_ShoppingPage extends JPanel{
         }
 			
 	}
-	
-	
 	
 	public void addItem(String user) {
 		if(amountField.getText().equals("")) {
@@ -394,5 +316,3 @@ public class Two_ShoppingPage extends JPanel{
 
 }
 	
-	
-

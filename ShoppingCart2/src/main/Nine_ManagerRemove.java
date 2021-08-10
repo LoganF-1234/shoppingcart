@@ -5,9 +5,11 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Nine_ManagerRemove extends JPanel {
-	private JTextPane txtfieldABeautifulEgg, textPane, txtpnInstockLeft, itemDescPane, itemRemoved;
-	private JTextField txtpnOutOfStock;
-	private JButton removeItem;
+	private JSeparator separator, separator_1, separator_2, separator_3, 
+		separator_4, separator_5, separator_6, separator_7;
+	private JTextPane txtfieldABeautifulEgg, textPane, txtpnInstockLeft, itemDescPane, itemRemoved, txtpnShoppingPage;
+	private JTextField txtpnOutOfStock, textField;
+	private JButton removeItem, btnBack;
 	String name, amount, cost, user;
 	String[] arrayItemNames, stuff;
 	private JComboBox comboItems;
@@ -23,130 +25,47 @@ public class Nine_ManagerRemove extends JPanel {
 		setBounds(100, 100, 852, 634);
 		setLayout(null);
 		
-		removeItem = new JButton("Remove This Item From Inventory");
-		removeItem.setBounds(458, 450, 345, 40);
-		removeItem.addActionListener(new ButtonListener());
-		add(removeItem);
+		newSeparator(separator, 439, 134, 387, 2, "");
+		newSeparator(separator_1, 439, 134, 2, 406, "vertical");
+		newSeparator(separator_2, 439, 538, 387, 2, "");
+		newSeparator(separator_3, 825, 134, 2, 406, "vertical");
+		newSeparator(separator_4, 29, 134, 2, 406, "vertical");
+		newSeparator(separator_5, 29, 538, 393, 2, "");
+		newSeparator(separator_6, 29, 134, 393, 2, "");
+		newSeparator(separator_7, 421, 134, 2, 406, "vertical");
 		
-		itemRemoved = new JTextPane();
-		itemRemoved.setFont(new Font("Monospaced", Font.ITALIC, 13));
-		itemRemoved.setBackground(main.myYellow);
-		itemRemoved.setEditable(false);
-		itemRemoved.setBounds(458, 500, 350, 20);
-		add(itemRemoved);
-
-		JTextPane txtpnShoppingPage = new JTextPane();
-		txtpnShoppingPage.setEditable(false);
-		txtpnShoppingPage.setFont(new Font("Monospaced", Font.BOLD, 36));
-		txtpnShoppingPage.setBackground(main.myYellow);
-		txtpnShoppingPage.setBounds(10, 11, 650, 52);
-		txtpnShoppingPage.setText("Remove Item From Inventory");
-		add(txtpnShoppingPage);
-
+		txtpnShoppingPage = new JTextPane();
 		textPane = new JTextPane();
-		textPane.setEditable(false);
-		textPane.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		textPane.setBackground(main.myYellow);
-		textPane.setText("");
-		textPane.setBounds(459, 260, 46, 20);
-		add(textPane);
+		txtfieldABeautifulEgg = new JTextPane();
+		itemDescPane = new JTextPane();
+		txtpnInstockLeft = new JTextPane();
+		itemRemoved = new JTextPane();
 
-		JTextPane txtpnPerDozen = new JTextPane();
-		txtpnPerDozen.setEditable(false);
-		txtpnPerDozen.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		txtpnPerDozen.setBackground(main.myYellow);
-		txtpnPerDozen.setText("Per Dozen");
-		txtpnPerDozen.setVisible(false);
-		txtpnPerDozen.setBounds(524, 349, 64, 20);
-		add(txtpnPerDozen);
+		newTextPane(txtpnShoppingPage, 20, 25, 400, 52, "Remove Item From Inventory", 36, "bold"); //bold
+		newTextPane(textPane, 459, 260, 46, 20, "", 13, "");
+		newTextPane(txtfieldABeautifulEgg, 459, 140, 300, 55, "Please choose an item to remove...", 20, "bold");
+		newTextPane(itemDescPane, 459, 195, 350, 23, "", 15, "");
+		newTextPane(txtpnInstockLeft, 459, 230, 205, 23, "", 14, "");
+		newTextPane(itemRemoved, 458, 500, 350, 20, "", 13, "italic"); 
 
-		JSeparator separator = new JSeparator();
-		separator.setBackground(Color.BLACK);
-		separator.setForeground(Color.BLACK);
-		separator.setBounds(439, 134, 387, 2);
-		add(separator);
-
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setForeground(Color.BLACK);
-		separator_1.setBackground(Color.BLACK);
-		separator_1.setBounds(439, 134, 2, 406);
-		add(separator_1);
-
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBackground(Color.BLACK);
-		separator_2.setForeground(Color.BLACK);
-		separator_2.setBounds(439, 538, 387, 2);
-		add(separator_2);
-
-		JSeparator separator_3 = new JSeparator();
-		separator_3.setBackground(Color.BLACK);
-		separator_3.setForeground(Color.BLACK);
-		separator_3.setOrientation(SwingConstants.VERTICAL);
-		separator_3.setBounds(825, 134, 2, 406);
-		add(separator_3);
-
-		TextField textField = new TextField();
+		textField = new JTextField();
 		textField.setText("Search for an item...");
 		textField.setFont(new Font("Dialog", Font.PLAIN, 15));
 		textField.setBounds(29, 106, 797, 22);
 		add(textField);
-
-		txtfieldABeautifulEgg = new JTextPane();
-		txtfieldABeautifulEgg.setEditable(false);
-		txtfieldABeautifulEgg.setFont(new Font("Monospaced", Font.BOLD, 20));
-		txtfieldABeautifulEgg.setBackground(main.myYellow);
-		txtfieldABeautifulEgg.setText("Please choose an item to remove...");
-		txtfieldABeautifulEgg.setBounds(459, 140, 300, 55);
-		add(txtfieldABeautifulEgg);
-
-		itemDescPane = new JTextPane();
-		itemDescPane.setEditable(false);
-		itemDescPane.setFont(new Font("Monospaced", Font.PLAIN, 15));
-		itemDescPane.setBackground(main.myYellow);
-		itemDescPane.setBounds(459, 195, 370, 23);
-		add(itemDescPane);
-
-		txtpnInstockLeft = new JTextPane();
-		txtpnInstockLeft.setEditable(false);
-		txtpnInstockLeft.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		txtpnInstockLeft.setBackground(main.myYellow);
-		txtpnInstockLeft.setText("");
-		txtpnInstockLeft.setBounds(459, 230, 205, 23);
-		add(txtpnInstockLeft);
 
 		txtpnOutOfStock = new JTextField();
 		txtpnOutOfStock.setEditable(false);
 		txtpnOutOfStock.setVisible(false);
 		txtpnOutOfStock.setBounds(459, 239, 159, 23);
 		add(txtpnOutOfStock);
+		
+		removeItem = new JButton("Remove This Item From Inventory");
+		removeItem.setBounds(458, 450, 345, 40);
+		removeItem.addActionListener(new ButtonListener());
+		add(removeItem);
 
-		JSeparator separator_4 = new JSeparator();
-		separator_4.setBackground(Color.BLACK);
-		separator_4.setForeground(Color.BLACK);
-		separator_4.setOrientation(SwingConstants.VERTICAL);
-		separator_4.setBounds(29, 134, 2, 406);
-		add(separator_4);
-
-		JSeparator separator_5 = new JSeparator();
-		separator_5.setForeground(Color.BLACK);
-		separator_5.setBackground(Color.BLACK);
-		separator_5.setBounds(29, 538, 393, 2);
-		add(separator_5);
-		JSeparator separator_6 = new JSeparator();
-		separator_6.setBackground(Color.BLACK);
-		separator_6.setForeground(Color.BLACK);
-		separator_6.setBounds(29, 134, 393, 2);
-		add(separator_6);
-
-		JSeparator separator_7 = new JSeparator();
-		separator_7.setBackground(Color.BLACK);
-		separator_7.setForeground(Color.BLACK);
-		separator_7.setOrientation(SwingConstants.VERTICAL);
-		separator_7.setBounds(421, 134, 2, 406);
-		add(separator_7);
-
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		btnBack.setBounds(675, 66, 151, 34);
 		btnBack.addActionListener(new ActionListener() {
@@ -170,6 +89,35 @@ public class Nine_ManagerRemove extends JPanel {
 		comboItems.addActionListener(new ComboListener());
 		add(comboItems);
 
+	}
+	
+	public void newTextPane(JTextPane pane, int x, int y, int w, int h, String def, int font, String type) {
+		pane.setEditable(false);
+		pane.setBackground(main.myYellow);
+		pane.setText(def);
+		pane.setBounds(x, y, w, h);
+		if(type.equals("bold")) {
+			pane.setFont(new Font("Monospaced", Font.BOLD, font));
+
+		} else if(type.equals("italic")) {
+			pane.setFont(new Font("Monospaced", Font.ITALIC, font));
+
+		} else {
+			pane.setFont(new Font("Monospaced", Font.PLAIN, font));
+
+		}
+		add(pane);
+	}
+	
+	public void newSeparator(JSeparator sep, int x, int y, int w, int h, String orient) {
+		sep = new JSeparator();
+		sep.setBackground(Color.BLACK);
+		sep.setForeground(Color.BLACK);
+		sep.setBounds(x, y, w, h);
+		if(orient.equals("vertical")) {
+			sep.setOrientation(SwingConstants.VERTICAL);
+		} 
+		add(sep);
 	}
 	
 	public class ButtonListener implements ActionListener {
