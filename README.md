@@ -1,0 +1,3 @@
+# shoppingcart
+
+My team and I created a shopping cart application utilizing PostgreSQL and the Eclipse IDE. The application has the functionality to create accounts whether employee, manager, or customer. The application  is fully automated for adding users, items, items to specific users carts (saving the users cart even on logout). We had to figure out how to work together as a team through the designing, planning, and development stages; becoming proficient at using GitHub to commit our code and organize it amongst us. After my team had stopped working on it, I continued to develop it and make it functional, you can see where we left before I picked it up in my GitHub in a forked repository. 
