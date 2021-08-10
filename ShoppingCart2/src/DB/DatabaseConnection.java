@@ -320,7 +320,7 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/shoppingcart",
                     "postgres",
-                    "logan2002"
+                    "password"
             );
             //System.out.println("Opened Database Successfully!");
         }catch(ClassNotFoundException e) {
